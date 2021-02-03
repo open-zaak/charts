@@ -62,6 +62,8 @@ helm install open-notificaties open-zaak/open-notificaties \
 | `settings.publisherBrokerUrl` | The URL to the publisher broker | `"amqp://guest:guest@open-notificaties-rabbitmq:5672/%2F"` |
 | `settings.celeryBrokerUrl` | The URL to the Celery broker | `"amqp://guest:guest@open-notificaties-rabbitmq:5672//"` |
 | `settings.celeryResultBackend` | The URL to the Celery result backend | `"amqp://guest:guest@open-notificaties-rabbitmq:5672//"` |
+| `settings.isHttps` | Used to construct absolute URLs and controls a variety of security settings | `true` |
+| `settings.debug` | Only set this to True on a local development environment. Various other security settings are derived from this setting | `false` |
 | `postgresql.persistence.enabled` | Enable PostgreSQL persistency | `false` |
 | `postgresql.persistence.size` | Configure PostgreSQL size | `"1Gi"` |
 | `postgresql.persistence.existingClaim` | Use an existing persistent volume claim | `null` |

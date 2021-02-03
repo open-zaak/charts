@@ -12,6 +12,8 @@ data:
   DB_NAME: {{ .Values.settings.database.name | toString | quote }}
   CACHE_DEFAULT: {{ .Values.settings.cache.default | toString | quote }}
   CACHE_AXES: {{ .Values.settings.cache.axes | toString | quote }}
+  DEBUG: {{ .Values.settings.debug | toString | quote }}
+  IS_HTTPS: {{ .Values.settings.isHttps | toString | quote }}
   EMAIL_HOST: {{ .Values.settings.email.host | toString | quote }}
   {{- if .Values.settings.email.username }}
   EMAIL_USER: {{ .Values.settings.email.username | toString | quote }}
