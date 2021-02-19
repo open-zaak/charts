@@ -124,7 +124,7 @@ settings:
 
   isHttps: true
 
-  debug: "False"
+  debug: false
 
 #######################
 # PostgreSQL subchart #
