@@ -122,7 +122,7 @@ settings:
   celeryBrokerUrl: amqp://guest:guest@open-notificaties-rabbitmq:5672//
   celeryResultBackend: amqp://guest:guest@open-notificaties-rabbitmq:5672//
 
-  isHttps: "True"
+  isHttps: true
 
   debug: "False"
 
