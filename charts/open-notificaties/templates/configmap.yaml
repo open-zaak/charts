@@ -12,7 +12,7 @@ data:
   DB_NAME: {{ .Values.settings.database.name | toString | quote }}
   CACHE_DEFAULT: {{ .Values.settings.cache.default | toString | quote }}
   CACHE_AXES: {{ .Values.settings.cache.axes | toString | quote }}
-  DEBUG: {{ .Values.settings.debug | toString | quote }}
+  DEBUG: {{ if .Values.settings.debug }}"True"{{ else }}"False"{{ end }}
   IS_HTTPS: {{ .Values.settings.isHttps | toString | quote }}
   EMAIL_HOST: {{ .Values.settings.email.host | toString | quote }}
   {{- if .Values.settings.email.username }}
