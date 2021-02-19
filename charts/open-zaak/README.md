@@ -59,6 +59,8 @@ helm install open-zaak open-zaak/open-zaak \
 | `settings.cmis.enabled` | Enable CMIS | `false` |
 | `settings.cmis.mapperFile` | The CMIS mapper file | `""` |
 | `settings.sentry.dsn` | The DSN for Sentry Logging | `""` |
+| `settings.isHttps` | Used to construct absolute URLs and controls a variety of security settings | `true` |
+| `settings.debug` | Only set this to True on a local development environment. Various other security settings are derived from this setting | `false` |
 | `postgresql.persistence.enabled` | Enable PostgreSQL persistency | `false` |
 | `postgresql.persistence.size` | Configure PostgreSQL size | `"1Gi"` |
 | `postgresql.persistence.existingClaim` | Use an existing persistent volume claim | `null` |

@@ -123,6 +123,10 @@ settings:
     enabled: false
     mapperFile: ""
 
+  isHttps: true
+
+  debug: false
+
 #######################
 # PostgreSQL subchart #
 #######################
