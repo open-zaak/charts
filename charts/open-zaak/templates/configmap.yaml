@@ -6,14 +6,19 @@ metadata:
     {{- include "open-zaak.labels" . | nindent 4 }}
 data:
   ALLOWED_HOSTS: "{{ include "open-zaak.fullname" . }},{{ .Values.settings.allowedHosts | toString }}"
+  CACHE_DEFAULT: {{ .Values.settings.cache.default | toString | quote }}
+  CACHE_AXES: {{ .Values.settings.cache.axes | toString | quote }}
+  {{- if .Values.settings.cmis.enabled }}
+  CMIS_ENABLED: "True"
+  {{- end }}
+  {{- if .Values.settings.cmis.mapperFile }}
+  CMIS_MAPPER_FILE: {{ .Values.settings.cmis.mapperFile | toString | quote }}
+  {{- end }}
+  DB_NAME: {{ .Values.settings.database.name | toString | quote }}
   DB_HOST: {{ .Values.settings.database.host | toString | quote }}
   DB_PORT: {{ .Values.settings.database.port | toString | quote }}
   DB_USER: {{ .Values.settings.database.username | toString | quote }}
-  DB_NAME: {{ .Values.settings.database.name | toString | quote }}
-  CACHE_DEFAULT: {{ .Values.settings.cache.default | toString | quote }}
-  CACHE_AXES: {{ .Values.settings.cache.axes | toString | quote }}
-  DEBUG: {{ .Values.settings.debug | toString | quote }}
-  IS_HTTPS: {{ .Values.settings.isHttps | toString | quote }}
+  DEBUG: {{ if .Values.settings.debug }}"True"{{ else }}"False"{{ end }}
   EMAIL_HOST: {{ .Values.settings.email.host | toString | quote }}
   {{- if .Values.settings.email.username }}
   EMAIL_USER: {{ .Values.settings.email.username | toString | quote }}
@@ -21,10 +26,5 @@ data:
   {{- if .Values.settings.email.useTLS }}
   EMAIL_USE_TLS: "True"
   {{- end }}
+  IS_HTTPS: {{ if .Values.settings.isHttps }}"True"{{ else }}"False"{{ end }}
   JWT_EXPIRY: {{ .Values.settings.jwtExpiry | toString | quote }}
-  {{- if .Values.settings.cmis.enabled }}
-  CMIS_ENABLED: "True"
-  {{- end }}
-  {{- if .Values.settings.cmis.mapperFile }}
-  CMIS_MAPPER_FILE: {{ .Values.settings.cmis.mapperFile | toString | quote }}
-  {{- end }}

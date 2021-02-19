@@ -6,14 +6,13 @@ metadata:
     {{- include "open-notificaties.labels" . | nindent 4 }}
 data:
   ALLOWED_HOSTS: "{{ include "open-notificaties.fullname" . }},{{ .Values.settings.allowedHosts | toString }}"
+  CACHE_AXES: {{ .Values.settings.cache.axes | toString | quote }}
+  CACHE_DEFAULT: {{ .Values.settings.cache.default | toString | quote }}
+  DB_NAME: {{ .Values.settings.database.name | toString | quote }}
   DB_HOST: {{ .Values.settings.database.host | toString | quote }}
   DB_PORT: {{ .Values.settings.database.port | toString | quote }}
   DB_USER: {{ .Values.settings.database.username | toString | quote }}
-  DB_NAME: {{ .Values.settings.database.name | toString | quote }}
-  CACHE_DEFAULT: {{ .Values.settings.cache.default | toString | quote }}
-  CACHE_AXES: {{ .Values.settings.cache.axes | toString | quote }}
   DEBUG: {{ if .Values.settings.debug }}"True"{{ else }}"False"{{ end }}
-  IS_HTTPS: {{ .Values.settings.isHttps | toString | quote }}
   EMAIL_HOST: {{ .Values.settings.email.host | toString | quote }}
   {{- if .Values.settings.email.username }}
   EMAIL_USER: {{ .Values.settings.email.username | toString | quote }}
@@ -21,3 +20,4 @@ data:
   {{- if .Values.settings.email.useTLS }}
   EMAIL_USE_TLS: "True"
   {{- end }}
+  IS_HTTPS: {{ if .Values.settings.isHttps }}"True"{{ else }}"False"{{ end }}
