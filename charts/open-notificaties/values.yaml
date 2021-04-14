@@ -88,11 +88,6 @@ tolerations: []
 
 affinity: {}
 
-persistence:
-  enabled: false
-  size: 1Gi
-  existingClaim: null
-
 settings:
   allowedHosts: open-notificaties.gemeente.nl
 
