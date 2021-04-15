@@ -33,13 +33,20 @@ Create chart name and version as used by the chart label.
 {{/*
 Common labels
 */}}
-{{- define "open-notificaties.labels" -}}
+{{- define "open-notificaties.commonLabels" -}}
 helm.sh/chart: {{ include "open-notificaties.chart" . }}
-{{ include "open-notificaties.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Labels
+*/}}
+{{- define "open-notificaties.labels" -}}
+{{ include "open-notificaties.commonLabels" . }}
+{{ include "open-notificaties.selectorLabels" . }}
 {{- end }}
 
 {{/*
@@ -59,4 +66,36 @@ Create the name of the service account to use
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
+{{- end }}
+
+{{/*
+Create a name for the worker
+We truncate at 56 chars in order to provide space for the "-worker" suffix
+*/}}
+{{- define "open-notificaties.workerName" -}}
+{{ include "open-notificaties.name" . | trunc 56 | trimSuffix "-" }}-worker
+{{- end }}
+
+{{/*
+Create a default fully qualified name for the worker.
+We truncate at 56 chars in order to provide space for the "-worker" suffix
+*/}}
+{{- define "open-notificaties.workerFullname" -}}
+{{ include "open-notificaties.fullname" . | trunc 56 | trimSuffix "-" }}-worker
+{{- end }}
+
+{{/*
+Worker labels
+*/}}
+{{- define "open-notificaties.workerLabels" -}}
+{{ include "open-notificaties.commonLabels" . }}
+{{ include "open-notificaties.workerSelectorLabels" . }}
+{{- end }}
+
+{{/*
+Worker selector labels
+*/}}
+{{- define "open-notificaties.workerSelectorLabels" -}}
+app.kubernetes.io/name: {{ include "open-notificaties.workerName" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}

@@ -92,6 +92,16 @@ persistence:
   size: 1Gi
   existingClaim: null
 
+worker:
+  replicaCount: 1
+  resources: {}
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
 settings:
   allowedHosts: open-notificaties.gemeente.nl
 
@@ -118,9 +128,8 @@ settings:
   sentry:
     dsn: ""
 
-  publisherBrokerUrl: amqp://guest:guest@open-notificaties-rabbitmq:5672/%2F
-  celeryBrokerUrl: amqp://guest:guest@open-notificaties-rabbitmq:5672//
-  celeryResultBackend: amqp://guest:guest@open-notificaties-rabbitmq:5672//
+  messageBroker:
+    host: open-notificaties-rabbitmq
 
   isHttps: true
 
