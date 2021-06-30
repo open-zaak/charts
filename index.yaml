@@ -3,6 +3,32 @@ entries:
   open-notificaties:
   - apiVersion: v2
     appVersion: 1.1.0
+    created: "2021-06-30T12:10:31.469830132Z"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - postgresql
+      version: ~10.2.0
+    - name: redis
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - redis
+      version: ~12.2.2
+    - name: rabbitmq
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - rabbitmq
+      version: ~8.6.0
+    description: API voor het routeren van notificaties
+    digest: d6d547163078cd44773dd05c6e6fdf120f0652222cb927d3bf4bd2ae5096f873
+    name: open-notificaties
+    type: application
+    urls:
+    - https://github.com/open-zaak/charts/releases/download/open-notificaties-0.3.1/open-notificaties-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
+    appVersion: 1.1.0
     created: "2021-02-19T18:03:14.907867366Z"
     dependencies:
     - name: postgresql
