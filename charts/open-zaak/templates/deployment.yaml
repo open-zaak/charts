@@ -64,7 +64,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: media
-              mountPath: /media
+              mountPath: /app/private-media
       volumes:
         - name: media
         {{- if .Values.persistence.enabled }}
