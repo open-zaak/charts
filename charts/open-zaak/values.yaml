@@ -127,6 +127,34 @@ settings:
 
   debug: false
 
+nginx:
+  image:
+    repository: nginx
+    pullPolicy: IfNotPresent
+    tag: 1.21.1
+  replicaCount: 1
+  autoscaling:
+    enabled: false
+  livenessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+    successThreshold: 1
+  readinessProbe:
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+    successThreshold: 1
+  resources:
+    requests:
+      memory: "100Mi"
+      cpu: "250m"
+    limits:
+      cpu: "500m"
+      memory: "500Mi"
+
 #######################
 # PostgreSQL subchart #
 #######################
