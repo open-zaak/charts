@@ -118,7 +118,7 @@ spec:
             - configMapRef:
                 name: {{ include "open-notificaties.fullname" . }}
           resources:
-          {{- toYaml .Values.workerResources | nindent 12 }}
+          {{- toYaml .Values.worker.resources | nindent 12 }}
           command:
             - /celery_worker.sh
       {{- with .Values.nodeSelector }}
@@ -133,4 +133,5 @@ spec:
       tolerations:
       {{- toYaml . | nindent 8 }}
   {{- end }}
+
 
