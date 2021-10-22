@@ -13,3 +13,20 @@ spec:
       name: http
   selector:
     {{- include "open-zaak.selectorLabels" . | nindent 4 }}
+{{- if .Values.persistence.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "open-zaak.nginxFullname" . }}
+  labels:
+    {{- include "open-zaak.nginxLabels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      name: http
+  selector:
+    {{- include "open-zaak.nginxSelectorLabels" . | nindent 4 }}
+{{- end }}

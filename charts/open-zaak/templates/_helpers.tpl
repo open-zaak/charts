@@ -33,13 +33,20 @@ Create chart name and version as used by the chart label.
 {{/*
 Common labels
 */}}
-{{- define "open-zaak.labels" -}}
+{{- define "open-zaak.commonLabels" -}}
 helm.sh/chart: {{ include "open-zaak.chart" . }}
-{{ include "open-zaak.selectorLabels" . }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Open Zaak labels
+*/}}
+{{- define "open-zaak.labels" -}}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{ include "open-zaak.commonLabels" . }}
+{{ include "open-zaak.selectorLabels" . }}
 {{- end }}
 
 {{/*
@@ -59,4 +66,36 @@ Create the name of the service account to use
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
+{{- end }}
+
+{{/*
+Create a name for NGINX
+We truncate at 57 chars in order to provide space for the "-nginx" suffix
+*/}}
+{{- define "open-zaak.nginxName" -}}
+{{ include "open-zaak.name" . | trunc 57 | trimSuffix "-" }}-nginx
+{{- end }}
+
+{{/*
+Create a default fully qualified name for NGINX.
+We truncate at 57 chars in order to provide space for the "-nginx" suffix
+*/}}
+{{- define "open-zaak.nginxFullname" -}}
+{{ include "open-zaak.fullname" . | trunc 57 | trimSuffix "-" }}-nginx
+{{- end }}
+
+{{/*
+NGINX labels
+*/}}
+{{- define "open-zaak.nginxLabels" -}}
+{{ include "open-zaak.commonLabels" . }}
+{{ include "open-zaak.nginxSelectorLabels" . }}
+{{- end }}
+
+{{/*
+NGINX selector labels
+*/}}
+{{- define "open-zaak.nginxSelectorLabels" -}}
+app.kubernetes.io/name: {{ include "open-zaak.nginxName" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
