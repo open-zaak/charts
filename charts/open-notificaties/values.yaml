@@ -8,7 +8,7 @@ replicaCount: 1
 image:
   repository: openzaak/open-notificaties
   pullPolicy: IfNotPresent
-  tag: latest
+  tag: 1.2.1
 
 imagePullSecrets: []
 nameOverride: ""
