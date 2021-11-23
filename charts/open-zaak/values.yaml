@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: openzaak/open-zaak
   pullPolicy: IfNotPresent
-  tag: latest
+  tag: 1.4.0
 
 imagePullSecrets: []
 nameOverride: ""
