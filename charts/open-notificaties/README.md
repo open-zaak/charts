@@ -26,6 +26,16 @@ helm install open-notificaties open-zaak/open-notificaties \
 
 :warning: The default settings are unsafe for production usage. Configure proper secrets, enable persistency and consider High Availability (HA) for the database and the application.
 
+## Chart and Open Notificaties versions alignment
+
+Not every version of the chart is compatible with every version of Open Notificaties. The
+table below describes the supported versions
+
+| Chart version | Open Notificaties version |
+| ------------- | ------------------------- |
+| < 0.5.0       | < 1.2.0 |
+| 0.5.0         | 1.2.0 + |
+
 ## Configuration
 
 | Parameter | Description | Default |

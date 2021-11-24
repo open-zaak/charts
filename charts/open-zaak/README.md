@@ -25,6 +25,16 @@ helm install open-zaak open-zaak/open-zaak \
 
 :warning: The default settings are unsafe for production usage. Configure proper secrets, enable persistency and consider High Availability (HA) for the database and the application.
 
+## Chart and Open Zaak versions alignment
+
+Not every version of the chart is compatible with every version of Open Zaak. The
+table below describes the supported versions
+
+| Chart version | Open Zaak version |
+| ------------- | ----------------- |
+| < 0.5.0       | < 1.5.0 |
+| 0.5.0         | 1.5.0 + |
+
 ## Configuration
 
 | Parameter | Description | Default |
