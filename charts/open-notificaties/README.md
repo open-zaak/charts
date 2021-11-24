@@ -34,7 +34,7 @@ helm install open-notificaties open-zaak/open-notificaties \
 | `tags.redis` | Install Redis subchart | `true` |
 | `tags.rabbitmq` | Install RabbitMQ subchart | `true` |
 | `image.repository` | The repository of the Docker image | `openzaak/open-notificaties` |
-| `image.tag` | The tag of the Docker image | `latest` |
+| `image.tag` | The tag of the Docker image | `1.2.1` |
 | `replicaCount` | The number of replicas | `1` |
 | `ingress.enabled` | Expose the application through an ingress | `false` |
 | `ingress.annotations` | Additional annotations on the API ingress | `{}` |
@@ -54,11 +54,9 @@ helm install open-notificaties open-zaak/open-notificaties \
 | `settings.email.username` | The username of the SMTP server | `""` |
 | `settings.email.password` | The password of the SMTP server | `""` |
 | `settings.email.useTLS` | Use TLS for connecting to SMTP server | `false` |
-| `settings.email.useTLS` | Use TLS for connecting to SMTP server | `false` |
 | `settings.sentry.dsn` | The DSN for Sentry Logging | `""` |
-| `settings.publisherBrokerUrl` | The URL to the publisher broker | `"amqp://guest:guest@open-notificaties-rabbitmq:5672/%2F"` |
-| `settings.celeryBrokerUrl` | The URL to the Celery broker | `"amqp://guest:guest@open-notificaties-rabbitmq:5672//"` |
-| `settings.celeryResultBackend` | The URL to the Celery result backend | `"amqp://guest:guest@open-notificaties-rabbitmq:5672//"` |
+| `settings.messageBroker.host` | The URL to the Celery broker | `"open-notificaties-rabbitmq"` |
+| `settings.celery.resultBackend` | The URL to the Celery result backend | `"redis://open-notificaties-redis-master:6379/1"` |
 | `settings.isHttps` | Used to construct absolute URLs and controls a variety of security settings | `true` |
 | `settings.debug` | Only set this to True on a local development environment. Various other security settings are derived from this setting | `false` |
 | `postgresql.persistence.enabled` | Enable PostgreSQL persistency | `false` |

@@ -126,6 +126,10 @@ settings:
   messageBroker:
     host: open-notificaties-rabbitmq
 
+  celery:
+    resultBackend: redis://open-notificaties-redis-master:6379/1
+    # TODO: move message broker to this sub-section
+
   isHttps: true
 
   debug: false
