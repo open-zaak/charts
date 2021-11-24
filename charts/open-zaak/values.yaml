@@ -7,11 +7,14 @@ replicaCount: 1
 image:
   repository: openzaak/open-zaak
   pullPolicy: IfNotPresent
-  tag: 1.4.0
+  tag: 1.5.0-beta.2
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+initContainers:
+  volumePerms: true
 
 serviceAccount:
   create: true
@@ -20,16 +23,16 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext: {}
-  # fsGroup: 2000
+podSecurityContext:
+  fsGroup: 1000
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: false
+  runAsNonRoot: true
+  runAsUser: 1000
 
 livenessProbe:
   initialDelaySeconds: 60
@@ -89,10 +92,12 @@ affinity: {}
 persistence:
   enabled: false
   size: 1Gi
+  storageClassName: ''
   existingClaim: null
 
 settings:
   allowedHosts: open-zaak.gemeente.nl
+  useXForwardedHost: false
 
   secretKey: SOME-RANDOM-SECRET
 
@@ -129,10 +134,18 @@ settings:
 
 nginx:
   image:
-    repository: nginx
+    repository: nginxinc/nginx-unprivileged
     pullPolicy: IfNotPresent
-    tag: 1.21.1
+    tag: stable
   replicaCount: 1
+  securityContext:
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: false
+    runAsNonRoot: true
+    runAsUser: 101
+    fsGroup: 1000
   autoscaling:
     enabled: false
   livenessProbe:

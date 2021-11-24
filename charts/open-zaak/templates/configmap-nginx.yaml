@@ -14,6 +14,9 @@ data:
     proxy_set_header X-Scheme $scheme;
     proxy_connect_timeout 300s;
     proxy_read_timeout 300s;
+    {{- if .Values.useXForwardedHost }}
+    proxy_set_header Host $http_host;
+    {{- end }}
 
     proxy_redirect off;
     proxy_pass_request_headers on;
@@ -22,7 +25,7 @@ data:
 
   default.conf: |
     server {
-      listen       80 default_server;
+      listen       8080 default_server;
       server_name  {{ .Values.settings.allowedHosts  | replace "," " "}} localhost};
       server_tokens off;
 

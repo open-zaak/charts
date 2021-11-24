@@ -6,6 +6,9 @@ metadata:
     {{- include "open-zaak.labels" . | nindent 4 }}
 data:
   ALLOWED_HOSTS: "{{ include "open-zaak.fullname" . }},{{ .Values.settings.allowedHosts | toString }}"
+  {{- if .Values.useXForwardedHost }}
+  USE_X_FORWARDED_HOST: "True"
+  {{- end }}
   CACHE_DEFAULT: {{ .Values.settings.cache.default | toString | quote }}
   CACHE_AXES: {{ .Values.settings.cache.axes | toString | quote }}
   {{- if .Values.settings.cmis.enabled }}

@@ -29,6 +29,21 @@ spec:
       serviceAccountName: {{ include "open-zaak.serviceAccountName" . }}
       securityContext:
       {{- toYaml .Values.podSecurityContext | nindent 8 }}
+
+      {{- if and .Values.persistence.enabled .Values.initContainers.volumePerms }}
+      # fix the file system permissions for the 1.5 upgrade
+      initContainers:
+        - name: volume-perms
+          image: busybox:latest
+          command: ['chown', '-R', '1000:1000', '/app/private-media']
+          securityContext:
+            runAsNonRoot: false
+            runAsUser: 0
+          volumeMounts:
+            - name: media
+              mountPath: /app/private-media
+      {{- end }}
+
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -121,21 +136,21 @@ spec:
       containers:
         - name: nginx
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml .Values.nginx.securityContext | nindent 12 }}
           image: "{{ .Values.nginx.image.repository }}:{{ .Values.nginx.image.tag }}"
           imagePullPolicy: {{ .Values.nginx.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
           livenessProbe:
             httpGet:
               path: /_health/
-              port: http
+              port: 8080
             {{- toYaml .Values.nginx.livenessProbe | nindent 12 }}
           readinessProbe:
             httpGet:
               path: /
-              port: http
+              port: 8080
             {{- toYaml .Values.nginx.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.nginx.resources | nindent 12 }}
