@@ -42,7 +42,7 @@ table below describes the supported versions
 | `tags.postgresql` | Install PostgreSQL subchart | `true` |
 | `tags.redis` | Install Redis subchart | `true` |
 | `image.repository` | The repository of the Docker image | `openzaak/open-zaak` |
-| `image.tag` | The tag of the Docker image | `1.5.0` |
+| `image.tag` | The tag of the Docker image | `""` uses `.Chart.AppVersion` by default |
 | `replicaCount` | The number of replicas | `1` |
 | `ingress.enabled` | Expose the application through an ingress | `false` |
 | `ingress.annotations` | Additional annotations on the API ingress | `{}` |
