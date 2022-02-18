@@ -8,7 +8,7 @@ replicaCount: 1
 image:
   repository: openzaak/open-notificaties
   pullPolicy: IfNotPresent
-  tag: 1.2.1
+  tag: ""  # uses .Chart.AppVersion by default
 
 imagePullSecrets: []
 nameOverride: ""

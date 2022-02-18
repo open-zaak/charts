@@ -44,7 +44,7 @@ table below describes the supported versions
 | `tags.redis` | Install Redis subchart | `true` |
 | `tags.rabbitmq` | Install RabbitMQ subchart | `true` |
 | `image.repository` | The repository of the Docker image | `openzaak/open-notificaties` |
-| `image.tag` | The tag of the Docker image | `1.2.1` |
+| `image.tag` | The tag of the Docker image | `""` (uses `.Chart.AppVersion` by default) |
 | `replicaCount` | The number of replicas | `1` |
 | `ingress.enabled` | Expose the application through an ingress | `false` |
 | `ingress.annotations` | Additional annotations on the API ingress | `{}` |
