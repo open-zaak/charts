@@ -25,6 +25,16 @@ helm install open-zaak open-zaak/open-zaak \
 
 :warning: The default settings are unsafe for production usage. Configure proper secrets, enable persistency and consider High Availability (HA) for the database and the application.
 
+## Chart and Open Zaak versions alignment
+
+Not every version of the chart is compatible with every version of Open Zaak. The
+table below describes the supported versions
+
+| Chart version | Open Zaak version |
+| ------------- | ----------------- |
+| < 0.5.0       | < 1.5.0 |
+| 0.5.0         | 1.5.0 + |
+
 ## Configuration
 
 | Parameter | Description | Default |
@@ -32,16 +42,19 @@ helm install open-zaak open-zaak/open-zaak \
 | `tags.postgresql` | Install PostgreSQL subchart | `true` |
 | `tags.redis` | Install Redis subchart | `true` |
 | `image.repository` | The repository of the Docker image | `openzaak/open-zaak` |
-| `image.tag` | The tag of the Docker image | `latest` |
+| `image.tag` | The tag of the Docker image | `""` uses `.Chart.AppVersion` by default |
 | `replicaCount` | The number of replicas | `1` |
 | `ingress.enabled` | Expose the application through an ingress | `false` |
 | `ingress.annotations` | Additional annotations on the API ingress | `{}` |
 | `ingress.hosts` | Ingress hosts | `"{open-zaak.gemeente.nl}"` |
 | `ingress.tls` | Ingress TLS settings | `"[]"` |
 | `persistence.enabled` | Enable persistency for application media | `false` |
+| `persistence.storageClassName` | Storage class name for the PVC creation, must support RWX | `""` |
 | `persistence.size` | The size of the application media persistent volume | `"1Gi"` |
 | `persistence.existingClaim` | Use an existing claim for application media | `null` |
+| `initContainers.volumePerms` | Run the file-permission fix init container (for upgrades from Open Zaak < 1.5) | `true` |
 | `settings.allowedHosts` | A comma-separated list of hosts allowed by the application | `"open-zaak.gemeente.nl"` |
+| `settings.useXForwardedHost` | Whether to rely on the `X-Forwarded-Host` header from ingress for host detection | `false` |
 | `settings.secretKey` | The secret key of the application | `"SOME-RANDOM-SECRET"` |
 | `settings.database.host` | The hostname of PostgreSQL | `"open-zaak-postgresql"` |
 | `settings.database.port` | The port of PostgreSQL | `5432` |
