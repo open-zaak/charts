@@ -21,6 +21,9 @@ spec:
       {{- end }}
       labels:
     {{- include "open-zaak.selectorLabels" . | nindent 8 }}
+    {{- with .Values.extraPodLabels }}
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -125,6 +128,9 @@ spec:
         {{- end }}
       labels:
         {{- include "open-zaak.nginxSelectorLabels" . | nindent 8 }}
+        {{- with .Values.nginx.extraPodLabels }}
+            {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
