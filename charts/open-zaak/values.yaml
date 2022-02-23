@@ -95,6 +95,8 @@ persistence:
   storageClassName: ''
   existingClaim: null
 
+existingSecret: null
+
 settings:
   allowedHosts: open-zaak.gemeente.nl
   useXForwardedHost: false

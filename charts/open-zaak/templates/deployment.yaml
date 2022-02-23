@@ -52,7 +52,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - secretRef:
-                name: {{ include "open-zaak.fullname" . }}
+                name: {{ .Values.existingSecret | default (include "open-zaak.fullname" .) }}
             - configMapRef:
                 name: {{ include "open-zaak.fullname" . }}
           ports:

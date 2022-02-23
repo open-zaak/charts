@@ -52,6 +52,7 @@ table below describes the supported versions
 | `persistence.storageClassName` | Storage class name for the PVC creation, must support RWX | `""` |
 | `persistence.size` | The size of the application media persistent volume | `"1Gi"` |
 | `persistence.existingClaim` | Use an existing claim for application media | `null` |
+| `existingSecret` | Refer to an existing secret to avoid managing secrets through Helm. See templates/secret.yaml for required contents of your existing secret | `null` |
 | `initContainers.volumePerms` | Run the file-permission fix init container (for upgrades from Open Zaak < 1.5) | `true` |
 | `settings.allowedHosts` | A comma-separated list of hosts allowed by the application | `"open-zaak.gemeente.nl"` |
 | `settings.useXForwardedHost` | Whether to rely on the `X-Forwarded-Host` header from ingress for host detection | `false` |
