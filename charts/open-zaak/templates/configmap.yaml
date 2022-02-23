@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "open-zaak.labels" . | nindent 4 }}
 data:
-  ALLOWED_HOSTS: "{{ include "open-zaak.fullname" . }},{{ .Values.settings.allowedHosts | toString }}"
+  ALLOWED_HOSTS: "{{ include "open-zaak.fullname" . }},{{ include "open-zaak.fullname" . }}.{{ .Release.Namespace }},{{ .Values.settings.allowedHosts | toString }}"
   {{- if .Values.settings.useXForwardedHost }}
   USE_X_FORWARDED_HOST: "True"
   {{- end }}
