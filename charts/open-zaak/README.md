@@ -44,6 +44,7 @@ table below describes the supported versions
 | `image.repository` | The repository of the Docker image | `openzaak/open-zaak` |
 | `image.tag` | The tag of the Docker image | `""` uses `.Chart.AppVersion` by default |
 | `replicaCount` | The number of replicas | `1` |
+| `podLabels` | Additional labels to be set on the open-zaak pods | `{}` |
 | `ingress.enabled` | Expose the application through an ingress | `false` |
 | `ingress.annotations` | Additional annotations on the API ingress | `{}` |
 | `ingress.hosts` | Ingress hosts | `"{open-zaak.gemeente.nl}"` |
@@ -52,6 +53,7 @@ table below describes the supported versions
 | `persistence.storageClassName` | Storage class name for the PVC creation, must support RWX | `""` |
 | `persistence.size` | The size of the application media persistent volume | `"1Gi"` |
 | `persistence.existingClaim` | Use an existing claim for application media | `null` |
+| `existingSecret` | Refer to an existing secret to avoid managing secrets through Helm. See templates/secret.yaml for required contents of your existing secret | `null` |
 | `initContainers.volumePerms` | Run the file-permission fix init container (for upgrades from Open Zaak < 1.5) | `true` |
 | `settings.allowedHosts` | A comma-separated list of hosts allowed by the application | `"open-zaak.gemeente.nl"` |
 | `settings.useXForwardedHost` | Whether to rely on the `X-Forwarded-Host` header from ingress for host detection | `false` |
@@ -74,6 +76,7 @@ table below describes the supported versions
 | `settings.sentry.dsn` | The DSN for Sentry Logging | `""` |
 | `settings.isHttps` | Used to construct absolute URLs and controls a variety of security settings | `true` |
 | `settings.debug` | Only set this to True on a local development environment. Various other security settings are derived from this setting | `false` |
+| `nginx.podLabels` | Additional labels to be set on the nginx pods | `{}` |
 | `postgresql.persistence.enabled` | Enable PostgreSQL persistency | `false` |
 | `postgresql.persistence.size` | Configure PostgreSQL size | `"1Gi"` |
 | `postgresql.persistence.existingClaim` | Use an existing persistent volume claim | `null` |

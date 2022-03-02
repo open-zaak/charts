@@ -23,6 +23,8 @@ serviceAccount:
 
 podAnnotations: {}
 
+podLabels: {}
+
 podSecurityContext:
   fsGroup: 1000
 
@@ -95,6 +97,8 @@ persistence:
   storageClassName: ''
   existingClaim: null
 
+existingSecret: null
+
 settings:
   allowedHosts: open-zaak.gemeente.nl
   useXForwardedHost: false
@@ -138,6 +142,7 @@ nginx:
     pullPolicy: IfNotPresent
     tag: stable
   replicaCount: 1
+  podLabels: {}
   securityContext:
     capabilities:
       drop:

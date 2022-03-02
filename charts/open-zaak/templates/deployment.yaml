@@ -21,6 +21,9 @@ spec:
       {{- end }}
       labels:
     {{- include "open-zaak.selectorLabels" . | nindent 8 }}
+    {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -52,7 +55,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - secretRef:
-                name: {{ include "open-zaak.fullname" . }}
+                name: {{ .Values.existingSecret | default (include "open-zaak.fullname" .) }}
             - configMapRef:
                 name: {{ include "open-zaak.fullname" . }}
           ports:
@@ -125,6 +128,9 @@ spec:
         {{- end }}
       labels:
         {{- include "open-zaak.nginxSelectorLabels" . | nindent 8 }}
+        {{- with .Values.nginx.podLabels }}
+            {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
