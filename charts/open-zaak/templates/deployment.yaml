@@ -21,7 +21,7 @@ spec:
       {{- end }}
       labels:
     {{- include "open-zaak.selectorLabels" . | nindent 8 }}
-    {{- with .Values.extraPodLabels }}
+    {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
     {{- end }}
     spec:
@@ -128,7 +128,7 @@ spec:
         {{- end }}
       labels:
         {{- include "open-zaak.nginxSelectorLabels" . | nindent 8 }}
-        {{- with .Values.nginx.extraPodLabels }}
+        {{- with .Values.nginx.podLabels }}
             {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:

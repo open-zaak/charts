@@ -23,7 +23,7 @@ serviceAccount:
 
 podAnnotations: {}
 
-extraPodLabels: {}
+podLabels: {}
 
 podSecurityContext:
   fsGroup: 1000
@@ -142,7 +142,7 @@ nginx:
     pullPolicy: IfNotPresent
     tag: stable
   replicaCount: 1
-  extraPodLabels: {}
+  podLabels: {}
   securityContext:
     capabilities:
       drop:
