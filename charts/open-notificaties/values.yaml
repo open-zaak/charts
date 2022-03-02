@@ -32,6 +32,8 @@ securityContext:
   runAsNonRoot: true
   runAsUser: 1000
 
+existingSecret: null
+
 livenessProbe:
   initialDelaySeconds: 60
   periodSeconds: 10
@@ -89,6 +91,7 @@ affinity: {}
 
 worker:
   replicaCount: 1
+  existingSecret: null
   resources: {}
   autoscaling:
     enabled: false

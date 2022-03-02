@@ -50,6 +50,7 @@ table below describes the supported versions
 | `ingress.annotations` | Additional annotations on the API ingress | `{}` |
 | `ingress.hosts` | Ingress hosts | `"{open-notificaties.gemeente.nl}"` |
 | `ingress.tls` | Ingress TLS settings | `"[]"` |
+| `existingSecret` | Refer to an existing secret to avoid managing secrets through Helm. See templates/secret.yaml for required contents of your existing secret | `null` |
 | `settings.allowedHosts` | A comma-separated list of hosts allowed by the application | `"open-notificaties.gemeente.nl"` |
 | `settings.secretKey` | The secret key of the application | `"SOME-RANDOM-SECRET"` |
 | `settings.database.host` | The hostname of PostgreSQL | `"open-notificaties-postgresql"` |
@@ -69,6 +70,7 @@ table below describes the supported versions
 | `settings.celery.resultBackend` | The URL to the Celery result backend | `"redis://open-notificaties-redis-master:6379/1"` |
 | `settings.isHttps` | Used to construct absolute URLs and controls a variety of security settings | `true` |
 | `settings.debug` | Only set this to True on a local development environment. Various other security settings are derived from this setting | `false` |
+| `worker.existingSecret` | Refer to an existing secret to avoid managing secrets through Helm. See templates/secret.yaml for required contents of your existing secret | `null` |
 | `postgresql.persistence.enabled` | Enable PostgreSQL persistency | `false` |
 | `postgresql.persistence.size` | Configure PostgreSQL size | `"1Gi"` |
 | `postgresql.persistence.existingClaim` | Use an existing persistent volume claim | `null` |

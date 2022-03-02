@@ -37,7 +37,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - secretRef:
-                name: {{ include "open-notificaties.fullname" . }}
+                name: {{ .Values.existingSecret | default (include "open-notificaties.fullname" .) }}
             - configMapRef:
                 name: {{ include "open-notificaties.fullname" . }}
           ports:
@@ -114,7 +114,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - secretRef:
-                name: {{ include "open-notificaties.fullname" . }}
+                name: {{ .Values.worker.existingSecret | default (include "open-notificaties.fullname" .) }}
             - configMapRef:
                 name: {{ include "open-notificaties.fullname" . }}
           resources:
