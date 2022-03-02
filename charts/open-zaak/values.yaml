@@ -150,7 +150,6 @@ nginx:
     readOnlyRootFilesystem: false
     runAsNonRoot: true
     runAsUser: 101
-    fsGroup: 1000
   autoscaling:
     enabled: false
   livenessProbe:
