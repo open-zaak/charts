@@ -46,6 +46,7 @@ table below describes the supported versions
 | `image.repository` | The repository of the Docker image | `openzaak/open-notificaties` |
 | `image.tag` | The tag of the Docker image | `""` (uses `.Chart.AppVersion` by default) |
 | `replicaCount` | The number of replicas | `1` |
+| `podLabels` | Additional labels to be set on the open-notification API pods | `{}` |
 | `ingress.enabled` | Expose the application through an ingress | `false` |
 | `ingress.annotations` | Additional annotations on the API ingress | `{}` |
 | `ingress.hosts` | Ingress hosts | `"{open-notificaties.gemeente.nl}"` |
@@ -71,6 +72,7 @@ table below describes the supported versions
 | `settings.isHttps` | Used to construct absolute URLs and controls a variety of security settings | `true` |
 | `settings.debug` | Only set this to True on a local development environment. Various other security settings are derived from this setting | `false` |
 | `worker.existingSecret` | Refer to an existing secret to avoid managing secrets through Helm. See templates/secret.yaml for required contents of your existing secret | `null` |
+| `worker.podLabels` | Additional labels to be set on the open-notification worker pods | `{}` |
 | `postgresql.persistence.enabled` | Enable PostgreSQL persistency | `false` |
 | `postgresql.persistence.size` | Configure PostgreSQL size | `"1Gi"` |
 | `postgresql.persistence.existingClaim` | Use an existing persistent volume claim | `null` |

@@ -21,6 +21,8 @@ serviceAccount:
 
 podAnnotations: {}
 
+podLabels: {}
+
 podSecurityContext:
   runAsUser: 1000
 
@@ -91,6 +93,7 @@ affinity: {}
 
 worker:
   replicaCount: 1
+  podLabels: {}
   existingSecret: null
   resources: {}
   autoscaling:
