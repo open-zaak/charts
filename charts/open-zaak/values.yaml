@@ -111,6 +111,7 @@ settings:
     username: postgres
     password: SUPER-SECRET
     name: open-zaak
+    sslmode: prefer
 
   email:
     host: localhost

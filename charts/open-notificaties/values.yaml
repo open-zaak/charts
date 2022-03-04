@@ -145,6 +145,7 @@ settings:
     username: postgres
     password: SUPER-SECRET
     name: open-notificaties
+    sslmode: prefer
 
   email:
     host: localhost

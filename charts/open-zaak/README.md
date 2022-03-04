@@ -63,6 +63,7 @@ table below describes the supported versions
 | `settings.database.username` | The username of PostgreSQL | `"postgres"` |
 | `settings.database.password` | The password of PostgreSQL | `"SUPER-SECRET"` |
 | `settings.database.name` | The database name of PostgreSQL | `"open-zaak"` |
+| `settings.database.sslmode` | The SSL-mode used by the postgres client. See [docs](https://www.postgresql.org/docs/current/libpq-ssl.html) for more info | `"prefer"` |
 | `settings.cache.default` | The Redis cache for the default cache | `"open-zaak-redis-master:6379/0"` |
 | `settings.cache.axes` | The Redis cache for the axes cache | `"open-zaak-redis-master:6379/0"` |
 | `settings.email.host` | The hostname of the SMTP server | `"localhost"` |
