@@ -1,6 +1,10 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "open-notificaties.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
+{{- $flowerEnabled := .Values.flower.enabled }}
+{{- $flowerFullName := include "open-notificaties.flowerFullname" . -}}
+{{- $flowerSvcPort := .Values.flower.service.port -}}
+{{- $flowerUrlPrefix := .Values.flower.envVars.FLOWER_URL_PREFIX -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
@@ -35,5 +39,11 @@ spec:
             backend:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
+          {{- if $flowerEnabled }}
+          - path: /{{ $flowerUrlPrefix }}
+            backend:
+              serviceName: {{ $flowerFullName }}
+              servicePort: {{ $flowerSvcPort }}
+          {{- end }}
     {{- end }}
   {{- end }}

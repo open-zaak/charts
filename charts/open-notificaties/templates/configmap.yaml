@@ -22,3 +22,8 @@ data:
   {{- end }}
   IS_HTTPS: {{ if .Values.settings.isHttps }}"True"{{ else }}"False"{{ end }}
   RABBITMQ_HOST: {{ .Values.settings.messageBroker.host }}
+  {{- if .Values.flower.enabled }}
+  {{- range $index, $index_value := .Values.flower.envVars }}
+  {{ $index }}: {{ $index_value | toString | quote }}
+  {{- end }}
+  {{- end }}

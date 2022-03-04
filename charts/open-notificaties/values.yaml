@@ -103,6 +103,37 @@ worker:
     targetCPUUtilizationPercentage: 80
     # targetMemoryUtilizationPercentage: 80
 
+flower:
+  enabled: true
+  replicaCount: 1
+  podLabels: {}
+  existingSecret: null
+  service:
+    type: ClusterIP
+    port: 80
+  livenessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  readinessProbe:
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  resources: {}
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+  envVars: 
+    FLOWER_URL_PREFIX: flower
+  secretVars: {}
+
 settings:
   allowedHosts: open-notificaties.gemeente.nl
 
