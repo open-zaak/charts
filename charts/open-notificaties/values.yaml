@@ -124,12 +124,6 @@ flower:
     failureThreshold: 6
     successThreshold: 1
   resources: {}
-  autoscaling:
-    enabled: false
-    minReplicas: 1
-    maxReplicas: 100
-    targetCPUUtilizationPercentage: 80
-    # targetMemoryUtilizationPercentage: 80
   envVars: 
     FLOWER_URL_PREFIX: flower
   secretVars: {}
