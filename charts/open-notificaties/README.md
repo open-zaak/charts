@@ -81,8 +81,8 @@ table below describes the supported versions
 | `flower.enabled` | Whether or not to deploy the [Flower](https://flower.readthedocs.io/en/latest/) component, which is a monitoring tool for Celery  | `false` |
 | `flower.replicaCount` | The number of replicas for Celery Flower | `1` | 
 | `flower.podLabels` | Additional labels to be set for Celery Flower | `{}` | 
-| `flower.envVars.FLOWER_URL_PREFIX` | Deploy Flower on a non-root URL. You can configure Flower through additional environment variables. For a full list of possibilities, see [Flower config docs](https://flower.readthedocs.io/en/latest/config.html)  | `"flower"` | 
-| `flower.secretVars` | Configure Flower through arbitrary environment variables. This property should contain secrets like basic-auth. For a full list of possibilities, see [Flower config docs](https://flower.readthedocs.io/en/latest/config.html)  | `{}` | 
+| `flower.extraEnvVars` | Configure Flower through additional environment variables. For a full list of possibilities, see [Flower config docs](https://flower.readthedocs.io/en/latest/config.html)  | `"flower"` | 
+| `flower.extraEnvVarsSecret` | Configure Flower through additional environment variables. This property should contain secrets like basic-auth. For a full list of possibilities, see [Flower config docs](https://flower.readthedocs.io/en/latest/config.html)  | `{}` | 
 | `redis.usePassword` | Use a Redis password | `false` |
 | `redis.cluster.enabled` | Enable Redis cluster | `false` |
 | `redis.persistence.existingClaim` | Use existing persistent volume claim for Redis | `""` |

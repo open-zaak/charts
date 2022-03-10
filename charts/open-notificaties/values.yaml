@@ -122,9 +122,9 @@ flower:
     failureThreshold: 6
     successThreshold: 1
   resources: {}
-  envVars: 
+  extraEnvVars: 
     FLOWER_URL_PREFIX: flower
-  secretVars: {}
+  extraEnvVarsSecret: {}
 
 settings:
   allowedHosts: open-notificaties.gemeente.nl
