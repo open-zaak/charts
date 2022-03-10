@@ -94,7 +94,6 @@ affinity: {}
 worker:
   replicaCount: 1
   podLabels: {}
-  existingSecret: null
   resources: {}
   autoscaling:
     enabled: false
@@ -107,7 +106,6 @@ flower:
   enabled: true
   replicaCount: 1
   podLabels: {}
-  existingSecret: null
   service:
     type: ClusterIP
     port: 80

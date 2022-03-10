@@ -51,7 +51,7 @@ table below describes the supported versions
 | `ingress.annotations` | Additional annotations on the API ingress | `{}` |
 | `ingress.hosts` | Ingress hosts | `"{open-notificaties.gemeente.nl}"` |
 | `ingress.tls` | Ingress TLS settings | `"[]"` |
-| `existingSecret` | Refer to an existing secret to avoid managing secrets through Helm. See templates/secret.yaml for required contents of your existing secret | `null` |
+| `existingSecret` | Refer to an existing secret to avoid managing secrets through Helm. See templates/secret.yaml for required contents of your existing secret. This secret is also used for the Worker and Flower components. | `null` |
 | `settings.allowedHosts` | A comma-separated list of hosts allowed by the application | `"open-notificaties.gemeente.nl"` |
 | `settings.secretKey` | The secret key of the application | `"SOME-RANDOM-SECRET"` |
 | `settings.database.host` | The hostname of PostgreSQL | `"open-notificaties-postgresql"` |
@@ -72,7 +72,6 @@ table below describes the supported versions
 | `settings.celery.resultBackend` | The URL to the Celery result backend | `"redis://open-notificaties-redis-master:6379/1"` |
 | `settings.isHttps` | Used to construct absolute URLs and controls a variety of security settings | `true` |
 | `settings.debug` | Only set this to True on a local development environment. Various other security settings are derived from this setting | `false` |
-| `worker.existingSecret` | Refer to an existing secret to avoid managing secrets through Helm. See templates/secret.yaml for required contents of your existing secret | `null` |
 | `worker.podLabels` | Additional labels to be set on the open-notification worker pods | `{}` |
 | `postgresql.persistence.enabled` | Enable PostgreSQL persistency | `false` |
 | `postgresql.persistence.size` | Configure PostgreSQL size | `"1Gi"` |
@@ -82,7 +81,6 @@ table below describes the supported versions
 | `flower.enabled` | Whether or not to deploy the [Flower](https://flower.readthedocs.io/en/latest/) component, which is a monitoring tool for Celery  | `false` |
 | `flower.replicaCount` | The number of replicas for Celery Flower | `1` | 
 | `flower.podLabels` | Additional labels to be set for Celery Flower | `{}` | 
-| `flower.existingSecret` | Refer to an existing secret, containing Flower specific secrets, to avoid managing secrets through Helm.  | `{}` | 
 | `flower.envVars.FLOWER_URL_PREFIX` | Deploy Flower on a non-root URL. You can configure Flower through additional environment variables. For a full list of possibilities, see [Flower config docs](https://flower.readthedocs.io/en/latest/config.html)  | `"flower"` | 
 | `flower.secretVars` | Configure Flower through arbitrary environment variables. This property should contain secrets like basic-auth. For a full list of possibilities, see [Flower config docs](https://flower.readthedocs.io/en/latest/config.html)  | `{}` | 
 | `redis.usePassword` | Use a Redis password | `false` |
