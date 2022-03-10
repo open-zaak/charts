@@ -105,15 +105,15 @@ Create a name for Flower
 We truncate at 56 chars in order to provide space for the "-flower" suffix
 */}}
 {{- define "open-notificaties.flowerName" -}}
-{{ include "open-notificaties.name" . | trunc 57 | trimSuffix "-" }}-flower
+{{ include "open-notificaties.name" . | trunc 56 | trimSuffix "-" }}-flower
 {{- end }}
 
 {{/*
 Create a default fully qualified name for Flower.
-We truncate at 56 chars in order to provide space for the "-flower" suffix
+We truncate at 57 chars in order to provide space for the "-flower" suffix
 */}}
 {{- define "open-notificaties.flowerFullname" -}}
-{{ include "open-notificaties.fullname" . | trunc 57 | trimSuffix "-" }}-flower
+{{ include "open-notificaties.fullname" . | trunc 56 | trimSuffix "-" }}-flower
 {{- end }}
 
 {{/*
