@@ -83,7 +83,11 @@ table below describes the supported versions
 | `flower.replicaCount` | The number of replicas for Celery Flower | `1` | 
 | `flower.podLabels` | Additional labels to be set for Celery Flower | `{}` | 
 | `flower.extraEnvVars` | Configure Flower through additional environment variables. For a full list of possibilities, see [Flower config docs](https://flower.readthedocs.io/en/latest/config.html)  | `"flower"` | 
-| `flower.extraEnvVarsSecret` | Configure Flower through additional environment variables. This property should contain secrets like basic-auth. For a full list of possibilities, see [Flower config docs](https://flower.readthedocs.io/en/latest/config.html)  | `{}` | 
+| `flower.extraEnvVarsSecret` | Configure Flower through additional environment variables. This property should contain secrets like basic-auth. For a full list of possibilities, 
+| `flower.ingress.enabled` | Use a dedicated Ingress for Flower, which can act as a Management Ingress. When `Values.ingress.enabled` is set to true and this parameter to false, then Flower will be exposed on the main Ingress. | `false` | 
+| `flower.ingress.annotations` | Additional annotations on the Flower Ingress | `{}` |
+| `flower.ingress.hosts` | Flower Ingress hosts | `"{open-notificaties-flower.gemeente.nl}"` |
+| `flower.ingress.tls` | Flower Ingress TLS settings | `"[]"` |
 | `redis.usePassword` | Use a Redis password | `false` |
 | `redis.cluster.enabled` | Enable Redis cluster | `false` |
 | `redis.persistence.existingClaim` | Use existing persistent volume claim for Redis | `""` |
