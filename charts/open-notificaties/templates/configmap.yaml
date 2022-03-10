@@ -23,6 +23,9 @@ data:
   {{- end }}
   IS_HTTPS: {{ if .Values.settings.isHttps }}"True"{{ else }}"False"{{ end }}
   RABBITMQ_HOST: {{ .Values.settings.messageBroker.host }}
+  {{- if .Values.settings.flower.urlPrefix }}
+  FLOWER_URL_PREFIX: {{ .Values.settings.flower.urlPrefix }}
+  {{- end }}
   {{- if .Values.flower.enabled }}
   {{- range $index, $index_value := .Values.flower.extraEnvVars }}
   {{ $index }}: {{ $index_value | toString | quote }}

@@ -122,8 +122,7 @@ flower:
     failureThreshold: 6
     successThreshold: 1
   resources: {}
-  extraEnvVars: 
-    FLOWER_URL_PREFIX: flower
+  extraEnvVars: {}
   extraEnvVarsSecret: {}
 
 settings:
@@ -163,6 +162,9 @@ settings:
   isHttps: true
 
   debug: false
+
+  flower:
+    urlPrefix: ""
 
 #######################
 # PostgreSQL subchart #

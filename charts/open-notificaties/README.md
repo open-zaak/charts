@@ -72,6 +72,7 @@ table below describes the supported versions
 | `settings.celery.resultBackend` | The URL to the Celery result backend | `"redis://open-notificaties-redis-master:6379/1"` |
 | `settings.isHttps` | Used to construct absolute URLs and controls a variety of security settings | `true` |
 | `settings.debug` | Only set this to True on a local development environment. Various other security settings are derived from this setting | `false` |
+| `settings.flower.urlPrefix` | If enabled, deploy Flower on a non-root URL | `""` |
 | `worker.podLabels` | Additional labels to be set on the open-notification worker pods | `{}` |
 | `postgresql.persistence.enabled` | Enable PostgreSQL persistency | `false` |
 | `postgresql.persistence.size` | Configure PostgreSQL size | `"1Gi"` |
