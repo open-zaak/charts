@@ -148,9 +148,7 @@ metadata:
   labels:
   {{- include "open-notificaties.flowerLabels" . | nindent 4 }}
 spec:
-  {{- if not .Values.flower.autoscaling.enabled }}
   replicas: {{ .Values.flower.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "open-notificaties.flowerSelectorLabels" . | nindent 6 }}
