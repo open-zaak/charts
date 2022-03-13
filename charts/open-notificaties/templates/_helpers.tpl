@@ -110,7 +110,7 @@ We truncate at 56 chars in order to provide space for the "-flower" suffix
 
 {{/*
 Create a default fully qualified name for Flower.
-We truncate at 57 chars in order to provide space for the "-flower" suffix
+We truncate at 56 chars in order to provide space for the "-flower" suffix
 */}}
 {{- define "open-notificaties.flowerFullname" -}}
 {{ include "open-notificaties.fullname" . | trunc 56 | trimSuffix "-" }}-flower
