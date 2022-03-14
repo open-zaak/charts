@@ -99,3 +99,35 @@ Worker selector labels
 app.kubernetes.io/name: {{ include "open-notificaties.workerName" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Create a name for Flower
+We truncate at 56 chars in order to provide space for the "-flower" suffix
+*/}}
+{{- define "open-notificaties.flowerName" -}}
+{{ include "open-notificaties.name" . | trunc 56 | trimSuffix "-" }}-flower
+{{- end }}
+
+{{/*
+Create a default fully qualified name for Flower.
+We truncate at 56 chars in order to provide space for the "-flower" suffix
+*/}}
+{{- define "open-notificaties.flowerFullname" -}}
+{{ include "open-notificaties.fullname" . | trunc 56 | trimSuffix "-" }}-flower
+{{- end }}
+
+{{/*
+Flower labels
+*/}}
+{{- define "open-notificaties.flowerLabels" -}}
+{{ include "open-notificaties.commonLabels" . }}
+{{ include "open-notificaties.flowerSelectorLabels" . }}
+{{- end }}
+
+{{/*
+Flower selector labels
+*/}}
+{{- define "open-notificaties.flowerSelectorLabels" -}}
+app.kubernetes.io/name: {{ include "open-notificaties.flowerName" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}

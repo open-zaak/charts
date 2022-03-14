@@ -46,10 +46,12 @@ table below describes the supported versions
 | `image.repository` | The repository of the Docker image | `openzaak/open-notificaties` |
 | `image.tag` | The tag of the Docker image | `""` (uses `.Chart.AppVersion` by default) |
 | `replicaCount` | The number of replicas | `1` |
+| `podLabels` | Additional labels to be set on the open-notification API pods | `{}` |
 | `ingress.enabled` | Expose the application through an ingress | `false` |
 | `ingress.annotations` | Additional annotations on the API ingress | `{}` |
 | `ingress.hosts` | Ingress hosts | `"{open-notificaties.gemeente.nl}"` |
 | `ingress.tls` | Ingress TLS settings | `"[]"` |
+| `existingSecret` | Refer to an existing secret to avoid managing secrets through Helm. See templates/secret.yaml for required contents of your existing secret. This secret is also used for the Worker and Flower components. | `null` |
 | `settings.allowedHosts` | A comma-separated list of hosts allowed by the application | `"open-notificaties.gemeente.nl"` |
 | `settings.secretKey` | The secret key of the application | `"SOME-RANDOM-SECRET"` |
 | `settings.database.host` | The hostname of PostgreSQL | `"open-notificaties-postgresql"` |
@@ -57,6 +59,7 @@ table below describes the supported versions
 | `settings.database.username` | The username of PostgreSQL | `"postgres"` |
 | `settings.database.password` | The password of PostgreSQL | `"SUPER-SECRET"` |
 | `settings.database.name` | The database name of PostgreSQL | `"open-notificaties"` |
+| `settings.database.sslmode` | The SSL-mode used by the postgres client. See [docs](https://www.postgresql.org/docs/current/libpq-ssl.html) for more info | `"prefer"` |
 | `settings.cache.default` | The Redis cache for the default cache | `"open-notificaties-redis-master:6379/0"` |
 | `settings.cache.axes` | The Redis cache for the axes cache | `"open-notificaties-redis-master:6379/0"` |
 | `settings.email.host` | The hostname of the SMTP server | `"localhost"` |
@@ -69,11 +72,23 @@ table below describes the supported versions
 | `settings.celery.resultBackend` | The URL to the Celery result backend | `"redis://open-notificaties-redis-master:6379/1"` |
 | `settings.isHttps` | Used to construct absolute URLs and controls a variety of security settings | `true` |
 | `settings.debug` | Only set this to True on a local development environment. Various other security settings are derived from this setting | `false` |
+| `settings.flower.urlPrefix` | If enabled, deploy Flower on a non-root URL | `""` |
+| `settings.flower.basicAuth` | Secure Flower with [Basic Authentication](https://flower.readthedocs.io/en/latest/config.html#basic-auth). This is a comma-separated list of `username:password`. You should configure this when `flower.ingress.enabled` is set to true. | `""` |
+| `worker.podLabels` | Additional labels to be set on the open-notification worker pods | `{}` |
 | `postgresql.persistence.enabled` | Enable PostgreSQL persistency | `false` |
 | `postgresql.persistence.size` | Configure PostgreSQL size | `"1Gi"` |
 | `postgresql.persistence.existingClaim` | Use an existing persistent volume claim | `null` |
 | `postgresql.postgresqlDatabase` | The PostgreSQL database name | `"open-notificaties"` |
 | `postgresql.postgresqlPassword` | The PostgreSQL administrative password | `"SUPER-SECRET"` |
+| `flower.enabled` | Whether or not to deploy the [Flower](https://flower.readthedocs.io/en/latest/) component, which is a monitoring tool for Celery  | `false` |
+| `flower.replicaCount` | The number of replicas for Celery Flower | `1` | 
+| `flower.podLabels` | Additional labels to be set for Celery Flower | `{}` | 
+| `flower.extraEnvVars` | Configure Flower through additional environment variables. For a full list of possibilities, see [Flower config docs](https://flower.readthedocs.io/en/latest/config.html)  | `{}` | 
+| `flower.extraEnvVarsSecret` | Configure Flower through additional environment variables. This property should contain secrets like basic-auth. For a full list of possibilities, see [Flower config docs](https://flower.readthedocs.io/en/latest/config.html) | `{}` |
+| `flower.ingress.enabled` | Use a dedicated Ingress for Flower, which can act as a Management Ingress. When `Values.ingress.enabled` is set to true and this parameter to false, then Flower will be exposed on the main Ingress. | `false` | 
+| `flower.ingress.annotations` | Additional annotations on the Flower Ingress | `{}` |
+| `flower.ingress.hosts` | Flower Ingress hosts | `"{open-notificaties-flower.gemeente.nl}"` |
+| `flower.ingress.tls` | Flower Ingress TLS settings | `"[]"` |
 | `redis.usePassword` | Use a Redis password | `false` |
 | `redis.cluster.enabled` | Enable Redis cluster | `false` |
 | `redis.persistence.existingClaim` | Use existing persistent volume claim for Redis | `""` |

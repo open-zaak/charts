@@ -21,6 +21,8 @@ serviceAccount:
 
 podAnnotations: {}
 
+podLabels: {}
+
 podSecurityContext:
   runAsUser: 1000
 
@@ -31,6 +33,8 @@ securityContext:
   readOnlyRootFilesystem: false
   runAsNonRoot: true
   runAsUser: 1000
+
+existingSecret: null
 
 livenessProbe:
   initialDelaySeconds: 60
@@ -89,6 +93,7 @@ affinity: {}
 
 worker:
   replicaCount: 1
+  podLabels: {}
   resources: {}
   autoscaling:
     enabled: false
@@ -96,6 +101,40 @@ worker:
     maxReplicas: 100
     targetCPUUtilizationPercentage: 80
     # targetMemoryUtilizationPercentage: 80
+
+flower:
+  enabled: true
+  replicaCount: 1
+  podLabels: {}
+  service:
+    type: ClusterIP
+    port: 80
+  livenessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  readinessProbe:
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  resources: {}
+  extraEnvVars: {}
+  extraEnvVarsSecret: {}
+  ingress:
+    enabled: false
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - open-notificaties.gemeente.nl
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
 
 settings:
   allowedHosts: open-notificaties.gemeente.nl
@@ -108,6 +147,7 @@ settings:
     username: postgres
     password: SUPER-SECRET
     name: open-notificaties
+    sslmode: prefer
 
   email:
     host: localhost
@@ -133,6 +173,10 @@ settings:
   isHttps: true
 
   debug: false
+
+  flower:
+    urlPrefix: ""
+    basicAuth: ""
 
 #######################
 # PostgreSQL subchart #

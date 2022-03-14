@@ -12,6 +12,7 @@ data:
   DB_HOST: {{ .Values.settings.database.host | toString | quote }}
   DB_PORT: {{ .Values.settings.database.port | toString | quote }}
   DB_USER: {{ .Values.settings.database.username | toString | quote }}
+  PGSSLMODE: {{ .Values.settings.database.sslmode | toString | quote }}
   DEBUG: {{ if .Values.settings.debug }}"True"{{ else }}"False"{{ end }}
   EMAIL_HOST: {{ .Values.settings.email.host | toString | quote }}
   {{- if .Values.settings.email.username }}
@@ -22,3 +23,11 @@ data:
   {{- end }}
   IS_HTTPS: {{ if .Values.settings.isHttps }}"True"{{ else }}"False"{{ end }}
   RABBITMQ_HOST: {{ .Values.settings.messageBroker.host }}
+  {{- if .Values.settings.flower.urlPrefix }}
+  FLOWER_URL_PREFIX: {{ .Values.settings.flower.urlPrefix }}
+  {{- end }}
+  {{- if .Values.flower.enabled }}
+  {{- range $index, $index_value := .Values.flower.extraEnvVars }}
+  {{ $index }}: {{ $index_value | toString | quote }}
+  {{- end }}
+  {{- end }}
