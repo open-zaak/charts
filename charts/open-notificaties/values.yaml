@@ -176,6 +176,7 @@ settings:
 
   flower:
     urlPrefix: ""
+    basicAuth: ""
 
 #######################
 # PostgreSQL subchart #

@@ -73,6 +73,7 @@ table below describes the supported versions
 | `settings.isHttps` | Used to construct absolute URLs and controls a variety of security settings | `true` |
 | `settings.debug` | Only set this to True on a local development environment. Various other security settings are derived from this setting | `false` |
 | `settings.flower.urlPrefix` | If enabled, deploy Flower on a non-root URL | `""` |
+| `settings.flower.basicAuth` | Secure Flower with [Basic Authentication](https://flower.readthedocs.io/en/latest/config.html#basic-auth). This is a comma-separated list of `username:password`. You should configure this when `flower.ingress.enabled` is set to true. | `""` |
 | `worker.podLabels` | Additional labels to be set on the open-notification worker pods | `{}` |
 | `postgresql.persistence.enabled` | Enable PostgreSQL persistency | `false` |
 | `postgresql.persistence.size` | Configure PostgreSQL size | `"1Gi"` |
