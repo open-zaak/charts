@@ -113,6 +113,8 @@ settings:
     name: open-zaak
     sslmode: prefer
 
+  numProxies: 1  # use 2 if enabling ingress
+
   email:
     host: localhost
     port: 25

@@ -23,6 +23,7 @@ data:
   DB_USER: {{ .Values.settings.database.username | toString | quote }}
   PGSSLMODE: {{ .Values.settings.database.sslmode | toString | quote }}
   DEBUG: {{ if .Values.settings.debug }}"True"{{ else }}"False"{{ end }}
+  NUM_PROXIES: {{ .Values.settings.numProxies | toString | quote }}
   EMAIL_HOST: {{ .Values.settings.email.host | toString | quote }}
   {{- if .Values.settings.email.username }}
   EMAIL_USER: {{ .Values.settings.email.username | toString | quote }}

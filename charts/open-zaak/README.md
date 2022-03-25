@@ -64,6 +64,7 @@ table below describes the supported versions
 | `settings.database.password` | The password of PostgreSQL | `"SUPER-SECRET"` |
 | `settings.database.name` | The database name of PostgreSQL | `"open-zaak"` |
 | `settings.database.sslmode` | The SSL-mode used by the postgres client. See [docs](https://www.postgresql.org/docs/current/libpq-ssl.html) for more info | `"prefer"` |
+| `settings.numProxies` | The number of reverse proxies between client and backend container. Set this to 2 if exposing the application through an ingress. This chart deploys one nginx reverse proxy already. | `1`  |
 | `settings.cache.default` | The Redis cache for the default cache | `"open-zaak-redis-master:6379/0"` |
 | `settings.cache.axes` | The Redis cache for the axes cache | `"open-zaak-redis-master:6379/0"` |
 | `settings.email.host` | The hostname of the SMTP server | `"localhost"` |
