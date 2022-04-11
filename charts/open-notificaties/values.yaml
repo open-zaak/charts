@@ -149,6 +149,8 @@ settings:
     name: open-notificaties
     sslmode: prefer
 
+  numProxies: 0  # use 1 if enabling ingress
+
   email:
     host: localhost
     port: 25

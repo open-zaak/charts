@@ -34,7 +34,8 @@ table below describes the supported versions
 | Chart version | Open Notificaties version |
 | ------------- | ------------------------- |
 | < 0.5.0       | < 1.2.0 |
-| 0.5.0         | 1.2.0 + |
+| 0.5.0         | 1.2.x   |
+| 0.7.0         | 1.3.0 + |
 
 ## Configuration
 
@@ -60,6 +61,7 @@ table below describes the supported versions
 | `settings.database.password` | The password of PostgreSQL | `"SUPER-SECRET"` |
 | `settings.database.name` | The database name of PostgreSQL | `"open-notificaties"` |
 | `settings.database.sslmode` | The SSL-mode used by the postgres client. See [docs](https://www.postgresql.org/docs/current/libpq-ssl.html) for more info | `"prefer"` |
+| `settings.numProxies` | The number of reverse proxies between client and backend container. Set this to 1 if exposing the application through an ingress | `0`  |
 | `settings.cache.default` | The Redis cache for the default cache | `"open-notificaties-redis-master:6379/0"` |
 | `settings.cache.axes` | The Redis cache for the axes cache | `"open-notificaties-redis-master:6379/0"` |
 | `settings.email.host` | The hostname of the SMTP server | `"localhost"` |
