@@ -176,6 +176,11 @@ settings:
 
   debug: false
 
+  autoRetry:
+    maxRetries: null
+    backoff: null
+    backoffMax: null
+
   flower:
     urlPrefix: ""
     basicAuth: ""

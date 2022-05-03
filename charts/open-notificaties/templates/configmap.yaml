@@ -24,6 +24,15 @@ data:
   {{- end }}
   IS_HTTPS: {{ if .Values.settings.isHttps }}"True"{{ else }}"False"{{ end }}
   RABBITMQ_HOST: {{ .Values.settings.messageBroker.host }}
+  {{- if not eq .Values.settings.autoRetry.maxRetries nil }}
+  NOTIFICATION_DELIVERY_MAX_RETRIES: {{ .Values.settings.autoRetry.maxRetries | toString | quote }}
+  {{- end }}
+  {{- if .Values.settings.autoRetry.backoff }}
+  NOTIFICATION_DELIVERY_RETRY_BACKOFF: {{ .Values.settings.autoRetry.backoff | toString | quote}}
+  {{- end }}
+  {{- if .Values.settings.autoRetry.backoffMax }}
+  NOTIFICATION_DELIVERY_RETRY_BACKOFF_MAX: {{ .Values.settings.autoRetry.backoffMax | toString | quote }}
+  {{- end }}
   {{- if .Values.settings.flower.urlPrefix }}
   FLOWER_URL_PREFIX: {{ .Values.settings.flower.urlPrefix }}
   {{- end }}

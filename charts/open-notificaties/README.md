@@ -36,6 +36,7 @@ table below describes the supported versions
 | < 0.5.0       | < 1.2.0 |
 | 0.5.0         | 1.2.x   |
 | 0.7.0         | 1.3.0 + |
+| 0.8.0         | 1.4.0 + |
 
 ## Configuration
 
@@ -74,6 +75,9 @@ table below describes the supported versions
 | `settings.celery.resultBackend` | The URL to the Celery result backend | `"redis://open-notificaties-redis-master:6379/1"` |
 | `settings.isHttps` | Used to construct absolute URLs and controls a variety of security settings | `true` |
 | `settings.debug` | Only set this to True on a local development environment. Various other security settings are derived from this setting | `false` |
+| `settings.autoRetry.maxRetries` | Maximum number of notification delivery retries. If `null`, the upstream defaults are used. | `null` |
+| `settings.autoRetry.backoff` | Exponential backoff, boolean or number. If a number, applies as a scale factor. If `null`, the upstream defaults are used. | `null` |
+| `settings.autoRetry.backoffMax` | Upper limit (in seconds) of the exponential backoff. If `null`, the upstream defaults are used. | `null` |
 | `settings.flower.urlPrefix` | If enabled, deploy Flower on a non-root URL | `""` |
 | `settings.flower.basicAuth` | Secure Flower with [Basic Authentication](https://flower.readthedocs.io/en/latest/config.html#basic-auth). This is a comma-separated list of `username:password`. You should configure this when `flower.ingress.enabled` is set to true. | `""` |
 | `worker.podLabels` | Additional labels to be set on the open-notification worker pods | `{}` |
