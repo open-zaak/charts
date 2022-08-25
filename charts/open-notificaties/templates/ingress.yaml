@@ -6,9 +6,11 @@
 {{- $flowerFullName := include "open-notificaties.flowerFullname" . -}}
 {{- $flowerSvcPort := .Values.flower.service.port -}}
 {{- $flowerUrlPrefix := .Values.settings.flower.urlPrefix -}}
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
+apiVersion: networking.k8s.io/v1
+{{- else if .Capabilities.APIVersions.Has "networking.k8s.io/v1beta1/Ingress" }}
 apiVersion: networking.k8s.io/v1beta1
-{{- else -}}
+{{- else }}
 apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
@@ -21,6 +23,9 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- if .Values.ingress.className }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- end }}
   {{- if .Values.ingress.tls }}
   tls:
     {{- range .Values.ingress.tls }}
@@ -38,13 +43,33 @@ spec:
         paths:
           - path: /
             backend:
+              {{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
+              service:
+                name: {{ $fullName }}
+                port: 
+                  number: {{ $svcPort }}
+              {{- else }}
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
+              {{- end }}
+            {{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
+            pathType: ImplementationSpecific
+            {{- end }}              
           {{- if and ($flowerEnabled) (not $flowerIngressEnabled) }}
           - path: /{{ $flowerUrlPrefix }}
             backend:
+              {{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
+              service:
+                name: {{ $flowerFullName }}
+                port: 
+                  number: {{ $flowerSvcPort }}
+              {{- else }}
               serviceName: {{ $flowerFullName }}
               servicePort: {{ $flowerSvcPort }}
+              {{- end }}
+            {{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
+            pathType: ImplementationSpecific
+            {{- end }}                     
           {{- end }}
     {{- end }}
   {{- end }}
@@ -54,9 +79,11 @@ spec:
 {{- $fullName := include "open-notificaties.flowerFullname" . -}}
 {{- $svcPort := .Values.flower.service.port -}}
 {{- $flowerUrlPrefix := .Values.settings.flower.urlPrefix -}}
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
+apiVersion: networking.k8s.io/v1
+{{- else if .Capabilities.APIVersions.Has "networking.k8s.io/v1beta1/Ingress" }}
 apiVersion: networking.k8s.io/v1beta1
-{{- else -}}
+{{- else }}
 apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
@@ -69,6 +96,9 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- if .Values.ingress.className }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- end }}
   {{- if .Values.flower.ingress.tls }}
   tls:
     {{- range .Values.flower.ingress.tls }}
@@ -86,7 +116,17 @@ spec:
         paths:
           - path: /{{ $flowerUrlPrefix }}
             backend:
+              {{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
+              service:
+                name: {{ $fullName }}
+                port: 
+                  number: {{ $svcPort }}
+              {{- else }}            
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
+              {{- end }}
+            {{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
+            pathType: ImplementationSpecific
+            {{- end }}              
     {{- end }}
   {{- end }}
