@@ -1,24 +1,21 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "open-notificaties.fullname" . -}}
-{{- $svcPort := .Values.service.port -}}
-{{- $flowerEnabled := .Values.flower.enabled }}
-{{- $flowerIngressEnabled := .Values.flower.ingress.enabled }}
-{{- $flowerFullName := include "open-notificaties.flowerFullname" . -}}
-{{- $flowerSvcPort := .Values.flower.service.port -}}
-{{- $flowerUrlPrefix := .Values.settings.flower.urlPrefix -}}
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+  {{- $fullName := include "open-notificaties.fullname" . -}}
+  {{- $svcPort := .Values.service.port -}}
+  {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1
+  {{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
-{{- else -}}
+  {{- else -}}
 apiVersion: extensions/v1beta1
-{{- end }}
+  {{- end }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "open-notificaties.labels" . | nindent 4 }}
+  {{- include "open-notificaties.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}
+  {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
   {{- if .Values.ingress.tls }}
@@ -27,9 +24,9 @@ spec:
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
-        {{- end }}
+      {{- end }}
       secretName: {{ .secretName }}
-    {{- end }}
+  {{- end }}
   {{- end }}
   rules:
     {{- range .Values.ingress.hosts }}
@@ -37,56 +34,18 @@ spec:
       http:
         paths:
           - path: /
+            {{- if semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion }}
+            pathType: ImplementationSpecific
+            {{- end }}
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: {{ $svcPort }}
-          {{- if and ($flowerEnabled) (not $flowerIngressEnabled) }}
-          - path: /{{ $flowerUrlPrefix }}
-            backend:
-              serviceName: {{ $flowerFullName }}
-              servicePort: {{ $flowerSvcPort }}
-          {{- end }}
-    {{- end }}
-  {{- end }}
-
----
-{{- if .Values.flower.ingress.enabled -}}
-{{- $fullName := include "open-notificaties.flowerFullname" . -}}
-{{- $svcPort := .Values.flower.service.port -}}
-{{- $flowerUrlPrefix := .Values.settings.flower.urlPrefix -}}
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
-apiVersion: networking.k8s.io/v1beta1
-{{- else -}}
-apiVersion: extensions/v1beta1
-{{- end }}
-kind: Ingress
-metadata:
-  name: {{ $fullName }}
-  labels:
-    {{- include "open-notificaties.labels" . | nindent 4 }}
-  {{- with .Values.flower.ingress.annotations }}
-  annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
-spec:
-  {{- if .Values.flower.ingress.tls }}
-  tls:
-    {{- range .Values.flower.ingress.tls }}
-    - hosts:
-        {{- range .hosts }}
-        - {{ . | quote }}
-        {{- end }}
-      secretName: {{ .secretName }}
-    {{- end }}
-  {{- end }}
-  rules:
-    {{- range .Values.flower.ingress.hosts }}
-    - host: {{ . | quote }}
-      http:
-        paths:
-          - path: /{{ $flowerUrlPrefix }}
-            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: {{ $svcPort }}
+              {{- else }}
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
     {{- end }}
+  {{- end }}
   {{- end }}
