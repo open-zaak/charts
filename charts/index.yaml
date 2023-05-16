@@ -3,7 +3,28 @@ entries:
   open-zaak:
   - apiVersion: v2
     appVersion: 1.7.1
-    created: "2023-05-05T16:56:19.0434827+02:00"
+    created: "2023-05-16T17:57:40.6117647+02:00"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - postgresql
+      version: 12.4.2
+    - name: redis
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - redis
+      version: 17.10.2
+    description: Productiewaardige API's voor Zaakgericht Werken
+    digest: 922e8e3c7cd63ffd6f097e8806a8760d1c250b029274b5ae0c9055f3215237a7
+    name: open-zaak
+    type: application
+    urls:
+    - open-zaak-0.8.4.tgz
+    version: 0.8.4
+  - apiVersion: v2
+    appVersion: 1.7.1
+    created: "2023-05-16T17:57:40.6032533+02:00"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -24,7 +45,7 @@ entries:
     version: 0.8.3
   - apiVersion: v2
     appVersion: 1.7.1
-    created: "2023-05-05T16:56:19.035544+02:00"
+    created: "2023-05-16T17:57:40.5942807+02:00"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -45,7 +66,7 @@ entries:
     version: 0.8.2
   - apiVersion: v2
     appVersion: 1.7.1
-    created: "2023-05-05T16:56:19.0252595+02:00"
+    created: "2023-05-16T17:57:40.586016+02:00"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -64,4 +85,4 @@ entries:
     urls:
     - open-zaak-0.8.1.tgz
     version: 0.8.1
-generated: "2023-05-05T16:56:19.0143278+02:00"
+generated: "2023-05-16T17:57:40.5733317+02:00"
