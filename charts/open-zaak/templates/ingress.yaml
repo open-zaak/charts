@@ -42,13 +42,13 @@ spec:
               service:
                 name: {{ $fullName }}
                 port:
-                  name: {{ $svcPort }}
+                  name: http
               {{- else }}
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
               {{- end}}
             {{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
             pathType: ImplementationSpecific
-            {{- end }} 
+            {{- end }}
     {{- end }}
   {{- end }}
