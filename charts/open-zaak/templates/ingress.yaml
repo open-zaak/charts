@@ -42,7 +42,7 @@ spec:
               service:
                 name: {{ $fullName }}
                 port:
-                  name: {{ $svcPort }}
+                  name: http
               {{- else }}
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
