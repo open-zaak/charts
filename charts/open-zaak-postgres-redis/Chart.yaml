@@ -1,0 +1,23 @@
+apiVersion: v2
+name: open-zaak-postgres-redis
+description: Productiewaardige API's voor Zaakgericht Werken
+
+type: application
+version: 0.8.1
+
+dependencies:
+  - name: open-zaak
+    version: ~0.8.1
+    repository: file://../open-zaak
+    tags:
+      - open-zaak
+  - name: postgresql
+    version: ~15.5.5
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - postgresql
+  - name: redis
+    version: ~19.5.2
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - redis

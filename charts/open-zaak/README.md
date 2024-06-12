@@ -1,11 +1,9 @@
 # Open Zaak chart
 
-The Helm chart installs Open Zaak and by default the following dependencies using subcharts:
-
-- [PostgreSQL](https://github.com/bitnami/charts/tree/master/bitnami/postgresql)
-- [Redis](https://github.com/bitnami/charts/tree/master/bitnami/redis)
-
 ## Installation
+
+This chart only installs Open Zaak. 
+If you would like to install PostgreSQL and Redis in one go, use the [open-zaak-postgres-redis](../open-zaak-postgres-redis/) chart and follow the instructions there.
 
 First configure the Helm repository:
 
@@ -19,6 +17,9 @@ Install the Helm chart with:
 ```bash
 helm install open-zaak open-zaak/open-zaak \
     --set "settings.allowedHosts=open-zaak.gemeente.nl" \
+    --set "settings.database.host=postgres.gemeente.nl" \
+    --set "settings.cache.default=redis.gemeente.nl:6379/0" \
+    --set "settings.cache.axes=redis.gemeente.nl:6379/0" \
     --set "ingress.enabled=true" \
     --set "ingress.hosts={open-zaak.gemeente.nl}"
 ```
