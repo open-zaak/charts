@@ -28,7 +28,7 @@ If you want to use your own instance of Redis, Postgres and RabbitMQ instead, yo
 
 ```bash
 
-helm install open-zaak open-zaak/open-zaak \
+helm install open-notificaties open-zaak/open-notificaties \
     --set "tags.redis=false" \
     --set "tags.postgresql=false" \
     --set "tags.rabbitmq=false" \
