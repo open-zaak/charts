@@ -125,7 +125,7 @@ settings:
 
   cache:
     default: open-zaak-redis-master:6379/0
-    axes: open-zaak-redis-master:6379/0
+    axes: open-zaak-redis-master:6379/1
 
   sentry:
     dsn: ""
@@ -139,6 +139,8 @@ settings:
   isHttps: true
 
   debug: false
+
+  extraEnvVars: {}
 
 nginx:
   image:
@@ -181,10 +183,11 @@ nginx:
 #######################
 
 postgresql:
-  persistence:
-    enabled: false
-    size: 1Gi
-    existingClaim: null
+  primary:
+    persistence:
+      enabled: false
+      size: 1Gi
+      existingClaim: null
 
   global:
     postgresql:
@@ -197,15 +200,11 @@ postgresql:
 ##################
 
 redis:
-  usePassword: false
-
-  cluster:
+  auth:
     enabled: false
-
-  persistence:
-    existingClaim: null
 
   master:
     persistence:
       enabled: false
       size: 1Gi
+      existingClaim: null
