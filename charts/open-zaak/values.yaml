@@ -59,7 +59,7 @@ ingress:
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  className: ""    
+  className: ""
   hosts:
     - open-zaak.gemeente.nl
   tls: []
@@ -186,8 +186,9 @@ postgresql:
     size: 1Gi
     existingClaim: null
 
-  postgresqlDatabase: open-zaak
-  postgresqlPassword: SUPER-SECRET
+  auth:
+    database: open-zaak
+    postgresPassword: SUPER-SECRET
 
 ##################
 # Redis subchart #
