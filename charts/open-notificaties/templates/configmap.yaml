@@ -24,7 +24,8 @@ data:
   {{- end }}
   IS_HTTPS: {{ if .Values.settings.isHttps }}"True"{{ else }}"False"{{ end }}
   RABBITMQ_HOST: {{ .Values.settings.messageBroker.host }}
-  {{- if not eq .Values.settings.autoRetry.maxRetries nil }}
+  {{- /* The if statement below is equivalent to {{- if $value }} but will also return true for 0. */ -}}
+  {{- if not (has (quote .Values.settings.autoRetry.maxRetries) (list "" (quote ""))) }}
   NOTIFICATION_DELIVERY_MAX_RETRIES: {{ .Values.settings.autoRetry.maxRetries | toString | quote }}
   {{- end }}
   {{- if .Values.settings.autoRetry.backoff }}
