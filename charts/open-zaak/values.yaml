@@ -59,7 +59,7 @@ ingress:
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  className: ""    
+  className: ""
   hosts:
     - open-zaak.gemeente.nl
   tls: []
@@ -125,7 +125,7 @@ settings:
 
   cache:
     default: open-zaak-redis-master:6379/0
-    axes: open-zaak-redis-master:6379/0
+    axes: open-zaak-redis-master:6379/1
 
   sentry:
     dsn: ""
@@ -139,6 +139,8 @@ settings:
   isHttps: true
 
   debug: false
+
+  extraEnvVars: {}
 
 nginx:
   image:
@@ -181,28 +183,28 @@ nginx:
 #######################
 
 postgresql:
-  persistence:
-    enabled: false
-    size: 1Gi
-    existingClaim: null
+  primary:
+    persistence:
+      enabled: false
+      size: 1Gi
+      existingClaim: null
 
-  postgresqlDatabase: open-zaak
-  postgresqlPassword: SUPER-SECRET
+  global:
+    postgresql:
+      auth:
+        database: open-zaak
+        postgresPassword: SUPER-SECRET
 
 ##################
 # Redis subchart #
 ##################
 
 redis:
-  usePassword: false
-
-  cluster:
+  auth:
     enabled: false
-
-  persistence:
-    existingClaim: null
 
   master:
     persistence:
       enabled: false
       size: 1Gi
+      existingClaim: null
