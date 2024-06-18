@@ -191,10 +191,11 @@ settings:
 #######################
 
 postgresql:
-  persistence:
-    enabled: false
-    size: 1Gi
-    existingClaim: null
+  primary:
+    persistence:
+      enabled: false
+      size: 1Gi
+      existingClaim: null
 
   global:
     postgresql:
@@ -207,18 +208,14 @@ postgresql:
 ##################
 
 redis:
-  usePassword: false
-
-  cluster:
+  auth:
     enabled: false
-
-  persistence:
-    existingClaim: null
 
   master:
     persistence:
       enabled: false
       size: 1Gi
+      existingClaim: null
 
 #####################
 # RabbitMQ subchart #
