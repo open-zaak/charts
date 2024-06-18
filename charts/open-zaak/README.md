@@ -23,6 +23,21 @@ helm install open-zaak open-zaak/open-zaak \
     --set "ingress.hosts={open-zaak.gemeente.nl}"
 ```
 
+If you want to use your own instance of Redis and Postgres instead, you can disable the subcharts:
+
+```bash
+
+helm install open-zaak open-zaak/open-zaak \
+--set "tags.redis=false" \
+--set "tags.postgresql=false" \
+--set "settings.database.host=postgres.gemeente.nl" \
+--set "settings.cache.default=redis.gemeente.nl:6379/0" \
+--set "settings.cache.axes=redis.gemeente.nl:6379/0" \
+--set "settings.allowedHosts=open-zaak.gemeente.nl" \
+--set "ingress.enabled=true" \
+--set "ingress.hosts={open-zaak.gemeente.nl}"
+```
+
 :warning: The default settings are unsafe for production usage. Configure proper secrets, enable persistency and consider High Availability (HA) for the database and the application.
 
 ## Chart and Open Zaak versions alignment
