@@ -46,7 +46,7 @@ helm install open-notificaties open-zaak/open-notificaties \
     --set "ingress.hosts={open-notificaties.gemeente.nl}"
 ```
 
-You will probably need to set more values to configure the connection to your own Redis and Postgres instances.
+You will probably need to set more values to configure the connection to your own Redis, Postgres and RabbitMQ instances.
 
 ## Chart and Open Notificaties versions alignment
 
