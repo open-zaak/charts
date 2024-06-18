@@ -186,9 +186,11 @@ postgresql:
     size: 1Gi
     existingClaim: null
 
-  auth:
-    database: open-zaak
-    postgresPassword: SUPER-SECRET
+  global:
+    postgresql:
+      auth:
+        database: open-zaak
+        postgresPassword: SUPER-SECRET
 
 ##################
 # Redis subchart #

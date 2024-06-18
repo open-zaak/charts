@@ -23,6 +23,10 @@ helm install open-zaak open-zaak/open-zaak \
     --set "ingress.hosts={open-zaak.gemeente.nl}"
 ```
 
+:warning: The default settings are unsafe for production usage. Configure proper secrets, enable persistency and consider High Availability (HA) for the database and the application.
+
+:warning: When you uninstall the chart, the PVCs will not be deleted. This can cause confusion during testing.
+
 If you want to use your own instance of Redis and Postgres instead, you can disable the subcharts:
 
 ```bash
@@ -38,7 +42,7 @@ helm install open-zaak open-zaak/open-zaak \
 --set "ingress.hosts={open-zaak.gemeente.nl}"
 ```
 
-:warning: The default settings are unsafe for production usage. Configure proper secrets, enable persistency and consider High Availability (HA) for the database and the application.
+You will probably need to set more values to configure the connection to your own Redis and Postgres instances.
 
 ## Chart and Open Zaak versions alignment
 
