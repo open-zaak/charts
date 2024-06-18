@@ -196,8 +196,11 @@ postgresql:
     size: 1Gi
     existingClaim: null
 
-  postgresqlDatabase: open-notificaties
-  postgresqlPassword: SUPER-SECRET
+  global:
+    postgresql:
+      auth:
+        database: open-notificaties
+        postgresPassword: SUPER-SECRET
 
 ##################
 # Redis subchart #
