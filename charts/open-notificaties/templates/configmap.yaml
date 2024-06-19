@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "open-notificaties.labels" . | nindent 4 }}
 data:
-  ALLOWED_HOSTS: "{{ include "open-notificaties.fullname" . }},{{ .Values.settings.allowedHosts | toString }}"
+  ALLOWED_HOSTS: "{{ include "open-notificaties.fullname" . }},{{ include "open-notificaties.fullname" . }}.{{ .Release.Namespace }},{{ include "open-notificaties.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local,{{ .Values.settings.allowedHosts | toString }}"
   CACHE_AXES: {{ .Values.settings.cache.axes | toString | quote }}
   CACHE_DEFAULT: {{ .Values.settings.cache.default | toString | quote }}
   DB_NAME: {{ .Values.settings.database.name | toString | quote }}
@@ -40,4 +40,7 @@ data:
   {{- range $index, $index_value := .Values.flower.extraEnvVars }}
   {{ $index }}: {{ $index_value | toString | quote }}
   {{- end }}
+  {{- end }}
+  {{- range $index, $value := .Values.settings.envVars }}
+  {{ $index }}: {{ $value | toString | quote }}
   {{- end }}

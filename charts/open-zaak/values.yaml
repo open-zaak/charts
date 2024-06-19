@@ -140,7 +140,20 @@ settings:
 
   debug: false
 
-  extraEnvVars: {}
+  envVars:
+    OPENZAAK_SUPERUSER_EMAIL: admin@admin.org
+    OPENZAAK_SUPERUSER_USERNAME: admin
+    # To provide an initial password set: settings.envVars.DJANGO_SUPERUSER_PASSWORD
+    OPENZAAK_DOMAIN: open-zaak.gemeente.nl
+    OPENZAAK_ORGANIZATION: Gemeente
+    DEMO_CONFIG_ENABLE: false
+    # Notificaties -> OpenZaak auth config
+    NOTIF_OPENZAAK_CLIENT_ID: open-notificaties
+    NOTIF_OPENZAAK_SECRET: NOTIF_OPENZAAK_SECRET
+    # OpenZaak -> Notificaties auth config
+    NOTIF_API_ROOT: http://open-notificaties.default.svc.cluster.local/api/v1/
+    OPENZAAK_NOTIF_CLIENT_ID: open-zaak
+    OPENZAAK_NOTIF_SECRET: OPENZAAK_NOTIF_SECRET
 
 nginx:
   image:

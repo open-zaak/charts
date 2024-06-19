@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "open-zaak.labels" . | nindent 4 }}
 data:
-  ALLOWED_HOSTS: "{{ include "open-zaak.fullname" . }},{{ include "open-zaak.fullname" . }}.{{ .Release.Namespace }},{{ .Values.settings.allowedHosts | toString }}"
+  ALLOWED_HOSTS: "{{ include "open-zaak.fullname" . }},{{ include "open-zaak.fullname" . }}.{{ .Release.Namespace }},{{ include "open-zaak.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local,{{ .Values.settings.allowedHosts | toString }}"
   {{- if .Values.settings.useXForwardedHost }}
   USE_X_FORWARDED_HOST: "True"
   {{- end }}
@@ -33,3 +33,6 @@ data:
   {{- end }}
   IS_HTTPS: {{ if .Values.settings.isHttps }}"True"{{ else }}"False"{{ end }}
   JWT_EXPIRY: {{ .Values.settings.jwtExpiry | toString | quote }}
+  {{- range $index, $value := .Values.settings.envVars }}
+  {{ $index }}: {{ $value | toString | quote }}
+  {{- end }}
