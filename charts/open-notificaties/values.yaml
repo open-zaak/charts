@@ -191,31 +191,31 @@ settings:
 #######################
 
 postgresql:
-  persistence:
-    enabled: false
-    size: 1Gi
-    existingClaim: null
+  primary:
+    persistence:
+      enabled: false
+      size: 1Gi
+      existingClaim: null
 
-  postgresqlDatabase: open-notificaties
-  postgresqlPassword: SUPER-SECRET
+  global:
+    postgresql:
+      auth:
+        database: open-notificaties
+        postgresPassword: SUPER-SECRET
 
 ##################
 # Redis subchart #
 ##################
 
 redis:
-  usePassword: false
-
-  cluster:
+  auth:
     enabled: false
-
-  persistence:
-    existingClaim: null
 
   master:
     persistence:
       enabled: false
       size: 1Gi
+      existingClaim: null
 
 #####################
 # RabbitMQ subchart #
