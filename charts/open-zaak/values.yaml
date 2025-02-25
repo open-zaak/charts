@@ -59,7 +59,7 @@ ingress:
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  className: ""    
+  className: ""
   hosts:
     - open-zaak.gemeente.nl
   tls: []
@@ -125,7 +125,7 @@ settings:
 
   cache:
     default: open-zaak-redis-master:6379/0
-    axes: open-zaak-redis-master:6379/0
+    axes: open-zaak-redis-master:6379/1
 
   sentry:
     dsn: ""
@@ -139,6 +139,21 @@ settings:
   isHttps: true
 
   debug: false
+
+  envVars:
+    OPENZAAK_SUPERUSER_EMAIL: admin@admin.org
+    OPENZAAK_SUPERUSER_USERNAME: admin
+    # To provide an initial password set: settings.envVars.DJANGO_SUPERUSER_PASSWORD
+    OPENZAAK_DOMAIN: open-zaak.gemeente.nl
+    OPENZAAK_ORGANIZATION: Gemeente
+    DEMO_CONFIG_ENABLE: false
+    # Notificaties -> OpenZaak auth config
+    NOTIF_OPENZAAK_CLIENT_ID: open-notificaties
+    NOTIF_OPENZAAK_SECRET: NOTIF_OPENZAAK_SECRET
+    # OpenZaak -> Notificaties auth config
+    NOTIF_API_ROOT: http://open-notificaties.default.svc.cluster.local/api/v1/
+    OPENZAAK_NOTIF_CLIENT_ID: open-zaak
+    OPENZAAK_NOTIF_SECRET: OPENZAAK_NOTIF_SECRET
 
 nginx:
   image:
@@ -181,28 +196,28 @@ nginx:
 #######################
 
 postgresql:
-  persistence:
-    enabled: false
-    size: 1Gi
-    existingClaim: null
+  primary:
+    persistence:
+      enabled: false
+      size: 1Gi
+      existingClaim: null
 
-  postgresqlDatabase: open-zaak
-  postgresqlPassword: SUPER-SECRET
+  global:
+    postgresql:
+      auth:
+        database: open-zaak
+        postgresPassword: SUPER-SECRET
 
 ##################
 # Redis subchart #
 ##################
 
 redis:
-  usePassword: false
-
-  cluster:
+  auth:
     enabled: false
-
-  persistence:
-    existingClaim: null
 
   master:
     persistence:
       enabled: false
       size: 1Gi
+      existingClaim: null

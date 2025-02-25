@@ -19,11 +19,31 @@ Install the Helm chart with:
 ```bash
 helm install open-zaak open-zaak/open-zaak \
     --set "settings.allowedHosts=open-zaak.gemeente.nl" \
+    --set "settings.envVars.DJANGO_SUPERUSER_PASSWORD=appelmoes" \
     --set "ingress.enabled=true" \
     --set "ingress.hosts={open-zaak.gemeente.nl}"
 ```
 
 :warning: The default settings are unsafe for production usage. Configure proper secrets, enable persistency and consider High Availability (HA) for the database and the application.
+
+:warning: When you uninstall the chart, the PVCs will not be deleted. This can cause confusion during testing.
+
+If you want to use your own instance of Redis and Postgres instead, you can disable the subcharts:
+
+```bash
+helm install open-zaak open-zaak/open-zaak \
+    --set "tags.redis=false" \
+    --set "tags.postgresql=false" \
+    --set "settings.database.host=postgres.gemeente.nl" \
+    --set "settings.cache.default=redis.gemeente.nl:6379/0" \
+    --set "settings.cache.axes=redis.gemeente.nl:6379/0" \
+    --set "settings.allowedHosts=open-zaak.gemeente.nl" \
+    --set "settings.envVars.DJANGO_SUPERUSER_PASSWORD=appelmoes" \
+    --set "ingress.enabled=true" \
+    --set "ingress.hosts={open-zaak.gemeente.nl}"
+```
+
+You will probably need to set more values to configure the connection to your own Redis and Postgres instances.
 
 ## Chart and Open Zaak versions alignment
 
@@ -79,16 +99,16 @@ table below describes the supported versions
 | `settings.sentry.dsn` | The DSN for Sentry Logging | `""` |
 | `settings.isHttps` | Used to construct absolute URLs and controls a variety of security settings | `true` |
 | `settings.debug` | Only set this to True on a local development environment. Various other security settings are derived from this setting | `false` |
+| `settings.envVars.*` | Environment variables for the application. See [docs](https://open-zaak.readthedocs.io/en/latest/installation/config/env_config.html) for more info | see [values.yaml]                        |
 | `nginx.podLabels` | Additional labels to be set on the nginx pods | `{}` |
-| `postgresql.persistence.enabled` | Enable PostgreSQL persistency | `false` |
-| `postgresql.persistence.size` | Configure PostgreSQL size | `"1Gi"` |
-| `postgresql.persistence.existingClaim` | Use an existing persistent volume claim | `null` |
-| `postgresql.postgresqlDatabase` | The PostgreSQL database name | `"open-zaak"` |
-| `postgresql.postgresqlPassword` | The PostgreSQL administrative password | `"SUPER-SECRET"` |
-| `redis.usePassword` | Use a Redis password | `false` |
-| `redis.cluster.enabled` | Enable Redis cluster | `false` |
-| `redis.persistence.existingClaim` | Use existing persistent volume claim for Redis | `""` |
-| `redis.master.persistence.enabled` | Enable persistency for Redis master | `false` |
-| `redis.master.persistence.size` | The size of the Redis master persistent volume | `"1Gi"` |
+| `postgresql.primary.persistence.enabled` | Enable PostgreSQL persistency | `false`                                  |
+| `postgresql.primary.persistence.size` | Configure PostgreSQL size | `"1Gi"`                                  |
+| `postgresql.primary.persistence.existingClaim` | Use an existing persistent volume claim | `null`                                   |
+| `postgresql.global.postgresql.auth.database` | The PostgreSQL database name | `"open-zaak"`                            |
+| `postgresql.global.postgresql.auth.postgresqlPassword` | The PostgreSQL administrative password | `"SUPER-SECRET"`                         |
+| `redis.auth.enabled` | Use a Redis password | `false`                                  |
+| `redis.master.persistence.enabled`  | Enable persistency for Redis master | `false`                                  |
+| `redis.master.persistence.size` | The size of the Redis master persistent volume | `"1Gi"`                                  |
+| `redis.master.persistence.existingClaim` | Use existing persistent volume claim for Redis | `""`                                     |
 
 Check [values.yaml](./values.yaml) for all the possible configuration options.

@@ -3,22 +3,23 @@ name: open-notificaties
 description: API voor het routeren van notificaties
 
 type: application
-version: 0.8.0
-appVersion: "1.4.0"
+version: 0.8.2
+# https://github.com/open-zaak/open-notificaties/tags
+appVersion: "1.6.0"
 
 dependencies:
   - name: postgresql
-    version: ~10.12.0
+    version: ~15.5.5
     repository: https://charts.bitnami.com/bitnami
     tags:
       - postgresql
   - name: redis
-    version: ~13.0.0
+    version: ~19.5.2
     repository: https://charts.bitnami.com/bitnami
     tags:
       - redis
   - name: rabbitmq
-    version: ~8.23.0
+    version: ~14.4.1
     repository: https://charts.bitnami.com/bitnami
     tags:
       - rabbitmq

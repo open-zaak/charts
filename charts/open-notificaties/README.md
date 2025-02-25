@@ -20,11 +20,34 @@ Install the Helm chart with:
 ```bash
 helm install open-notificaties open-zaak/open-notificaties \
     --set "settings.allowedHosts=open-notificaties.gemeente.nl" \
+    --set "settings.envVars.DJANGO_SUPERUSER_PASSWORD=appelmoes" \
     --set "ingress.enabled=true" \
     --set "ingress.hosts={open-notificaties.gemeente.nl}"
 ```
 
 :warning: The default settings are unsafe for production usage. Configure proper secrets, enable persistency and consider High Availability (HA) for the database and the application.
+
+:warning: When you uninstall the chart, the PVCs will not be deleted. This can cause confusion during testing.
+
+If you want to use your own instances of Redis, Postgres and RabbitMQ instead, you can disable the subcharts:
+
+```bash
+helm install open-notificaties open-zaak/open-notificaties \
+    --set "tags.redis=false" \
+    --set "tags.postgresql=false" \
+    --set "tags.rabbitmq=false" \
+    --set "settings.database.host=postgres.gemeente.nl" \
+    --set "settings.cache.default=redis.gemeente.nl:6379/1" \
+    --set "settings.cache.axes=redis.gemeente.nl:6379/1" \
+    --set "settings.celery.resultBackend=redis.gemeente.nl:6379/2" \
+    --set "settings.messageBroker.host=rabbitmq.gemeente.nl" \
+    --set "settings.allowedHosts=open-notificaties.gemeente.nl" \
+    --set "settings.envVars.DJANGO_SUPERUSER_PASSWORD=appelmoes" \
+    --set "ingress.enabled=true" \
+    --set "ingress.hosts={open-notificaties.gemeente.nl}"
+```
+
+You will probably need to set more values to configure the connection to your own Redis, Postgres and RabbitMQ instances.
 
 ## Chart and Open Notificaties versions alignment
 
@@ -80,12 +103,13 @@ table below describes the supported versions
 | `settings.autoRetry.backoffMax` | Upper limit (in seconds) of the exponential backoff. If `null`, the upstream defaults are used. | `null` |
 | `settings.flower.urlPrefix` | If enabled, deploy Flower on a non-root URL | `""` |
 | `settings.flower.basicAuth` | Secure Flower with [Basic Authentication](https://flower.readthedocs.io/en/latest/config.html#basic-auth). This is a comma-separated list of `username:password`. You should configure this when `flower.ingress.enabled` is set to true. | `""` |
+| `settings.envVars.*` | Environment variables for the application. See [Example config](https://github.com/open-zaak/open-notificaties/blob/main/docker-compose.yml) for more info | see [values.yaml]                                 |
 | `worker.podLabels` | Additional labels to be set on the open-notification worker pods | `{}` |
-| `postgresql.persistence.enabled` | Enable PostgreSQL persistency | `false` |
-| `postgresql.persistence.size` | Configure PostgreSQL size | `"1Gi"` |
-| `postgresql.persistence.existingClaim` | Use an existing persistent volume claim | `null` |
-| `postgresql.postgresqlDatabase` | The PostgreSQL database name | `"open-notificaties"` |
-| `postgresql.postgresqlPassword` | The PostgreSQL administrative password | `"SUPER-SECRET"` |
+| `postgresql.primary.ersistence.enabled` | Enable PostgreSQL persistency | `false` |
+| `postgresql.primary.persistence.size` | Configure PostgreSQL size | `"1Gi"` |
+| `postgresql.primary.persistence.existingClaim` | Use an existing persistent volume claim | `null` |
+| `postgresql.global.postgresql.auth.database` | The PostgreSQL database name | `"open-notificaties"` |
+| `postgresql.global.postgresql.auth.postgresqlPassword` | The PostgreSQL administrative password | `"SUPER-SECRET"` |
 | `flower.enabled` | Whether or not to deploy the [Flower](https://flower.readthedocs.io/en/latest/) component, which is a monitoring tool for Celery  | `false` |
 | `flower.replicaCount` | The number of replicas for Celery Flower | `1` | 
 | `flower.podLabels` | Additional labels to be set for Celery Flower | `{}` | 
@@ -95,11 +119,10 @@ table below describes the supported versions
 | `flower.ingress.annotations` | Additional annotations on the Flower Ingress | `{}` |
 | `flower.ingress.hosts` | Flower Ingress hosts | `"{open-notificaties-flower.gemeente.nl}"` |
 | `flower.ingress.tls` | Flower Ingress TLS settings | `"[]"` |
-| `redis.usePassword` | Use a Redis password | `false` |
-| `redis.cluster.enabled` | Enable Redis cluster | `false` |
-| `redis.persistence.existingClaim` | Use existing persistent volume claim for Redis | `""` |
+| `redis.auth.enabled` | Use a Redis password | `false` |
 | `redis.master.persistence.enabled` | Enable persistency for Redis master | `false` |
 | `redis.master.persistence.size` | The size of the Redis master persistent volume | `"1Gi"` |
+| `redis.master.persistence.existingClaim` | Use existing persistent volume claim for Redis | `""` |
 | `rabbitmq.auth.username` | RabbitMQ username | `"guest"` |
 | `rabbitmq.auth.password` | RabbitMQ password | `"guest"` |
 | `rabbitmq.auth.erlangCookie` | RabbitMQ Erlang Cookie | `"SUPER-SECRET"` |

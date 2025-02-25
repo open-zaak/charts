@@ -62,6 +62,21 @@ spec:
             - name: http
               containerPort: 8000
               protocol: TCP
+          lifecycle:
+            postStart:
+              exec:
+                # exit 0 = Don't fail because then the container will keep restarting without logging what is wrong.
+                command:
+                  - bash
+                  - -c
+                  - |
+                    ( echo "=== postStart script started at $(date) ==="
+                      set -x
+                      HEXPORT=$( printf '%X' 8000 )
+                      until grep -q ":$HEXPORT" /proc/net/tcp; do sleep 5; done
+                      python /app/src/manage.py setup_configuration --no-selftest
+                      exit 0
+                    ) >> /app/log/postStart.log 2>&1
           livenessProbe:
             httpGet:
               path: /

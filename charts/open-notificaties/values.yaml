@@ -104,7 +104,7 @@ worker:
     # targetMemoryUtilizationPercentage: 80
 
 flower:
-  enabled: true
+  enabled: false
   replicaCount: 1
   podLabels: {}
   service:
@@ -186,36 +186,51 @@ settings:
     urlPrefix: ""
     basicAuth: ""
 
+  envVars:
+    OPENNOTIFICATIES_SUPERUSER_USERNAME: admin
+    OPENNOTIFICATIES_SUPERUSER_EMAIL: admin@admin.org
+    # To provide an initial password set: settings.envVars.DJANGO_SUPERUSER_PASSWORD
+    OPENNOTIFICATIES_DOMAIN: open-notificaties.gemeente.nl
+    OPENNOTIFICATIES_ORGANIZATION: Gemeente
+    DEMO_CONFIG_ENABLE: false
+    # Notificaties -> OpenZaak auth config
+    AUTORISATIES_API_ROOT: http://open-zaak.default.svc.cluster.local/autorisaties/api/v1/
+    NOTIF_OPENZAAK_CLIENT_ID: open-notificaties
+    NOTIF_OPENZAAK_SECRET: NOTIF_OPENZAAK_SECRET
+    # OpenZaak -> Notificaties auth config
+    OPENZAAK_NOTIF_CLIENT_ID: open-zaak
+    OPENZAAK_NOTIF_SECRET: OPENZAAK_NOTIF_SECRET
+
 #######################
 # PostgreSQL subchart #
 #######################
 
 postgresql:
-  persistence:
-    enabled: false
-    size: 1Gi
-    existingClaim: null
+  primary:
+    persistence:
+      enabled: false
+      size: 1Gi
+      existingClaim: null
 
-  postgresqlDatabase: open-notificaties
-  postgresqlPassword: SUPER-SECRET
+  global:
+    postgresql:
+      auth:
+        database: open-notificaties
+        postgresPassword: SUPER-SECRET
 
 ##################
 # Redis subchart #
 ##################
 
 redis:
-  usePassword: false
-
-  cluster:
+  auth:
     enabled: false
-
-  persistence:
-    existingClaim: null
 
   master:
     persistence:
       enabled: false
       size: 1Gi
+      existingClaim: null
 
 #####################
 # RabbitMQ subchart #
